@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <title>Mark Carson</title>
+</head>
+<body>
+    {+}{banner}
+        
+    <div id="content">
+        <div id="main">
+            <div class="header hero">
+                <div class="hero-left">
+                    <div class="title">
+                        <h1><span>Hi, I'm </span><span id="name-highlight">Mark&nbsp;Carson</span></h1>
+                    </div>
+                    <div class="hero-text">
+                        <h2>I'm a <span>full-stack developer</span>, data scientist, and <span>environmentalist</span>.</h2>
+                        <h3> This website serves as my portfolio and blog, intentionally designed to be lightweight and efficient.</h3>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <a class="button">/resume</a>
+                    <a class="button">/projects</a>
+                    <a class="button">/blog</a>
+                </div>
+            </div>
+            
+            <div class="intro">
+                <!-- <p>Today, there is no shortage of inspired individuals, seeking to make positive change in the world.<br> -->
+                    There's no shortage of ideas, but ideas are cheap - execution is harder.<br>
+                    <!-- To bring these ideas from loose conception to reality, like-minded individuals will need to collaborate. -->
+                </p>
+                <div id="collaboration-invite">So, <a class="button">let's work together</a></div>
+                
+                
+
+                <!-- <div class="scroll">
+                    <div>
+                        <h3 id="repos-header">Recent repos (by commit):</h3>
+                        <ul id="repos-list">
+                            <li id="repos-loading"></li>
+                        </ul>
+                        </div>
+                </div> -->
+
+                <!-- <h3 class="scroll-invite">Looking to see what else I've done?<br><em>Find out below <span class="blinking">⬇</span></em></h3> -->
+            </div>
+        </div>
+
+        <!-- <div id="projects-showcase" class="subpage fl fl-dir-col">
+            <div class="projects">
+                <div>
+                    <h3 id="projects-header">{+}{project_showcase_text}:</h3>
+                    <p>As of now, this showcase displays my <em>public GitHub projects</em>. Any research or other papers, as well as private projects and repositories are not yet listed.</p>
+                    <ul id="projects-list">
+
+                    </ul>
+                    </div>
+                </div>
+            </div> -->
+    </div>
+
+    <div id="blog-section">
+        <div class="blog-posts-container">
+            {p}{#
+    
+result = ''
+sorted_posts = sorted(data["all_blog_posts"]["data"], key=lambda x: x["date_posted"], reverse=True)[:3]
+for post in sorted_posts:
+    truncated_description = (post["description"][:100] + '<span class="truncation">...</span>') if len(post["description"]) > 100 else post["description"]
+    full_url = '../' + post['full_url']
+    result += f'''
+    <a href="{full_url}" class="blog-tile" style='background-image: {post["cover_img"]}'>
+        <h2>{post["title"]}</h2>
+        <p>{post["author"]}</p>
+        <p>{post["date_posted"]}</p>
+        <p>{truncated_description}</p>
+        {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
+    </a>
+    '''
+result
+    
+            #}
+        </div>
+        <a class="button blog-button" href="blog.html">See all posts</a>
+    </div>
+    
+
+    {+}{footer}
+    <script src="topography.js"></script>
+    <script src="getRepos.js"></script>
+    <script src="getProjects.js"></script>
+</body>
+</html>
+<script src="../scripts/index.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
