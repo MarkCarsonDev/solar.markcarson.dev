@@ -1,3 +1,0 @@
-noise
-scikit-image
-shapely
