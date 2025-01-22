@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hi, I'm Mark Carson. A Software Engineer, Data Scientist, and Environmentalist. Explore my portfolio, projects, and personal journey in technology.">
+    <meta name="author" content="Mark Carson">
+    <meta name="keywords" content="Mark Carson, Software Engineer, Data Scientist, Portfolio, Environmentalist, Projects, Resume, Education">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Mark Carson - Software Engineer & Data Scientist">
+    <meta property="og:description" content="Explore Mark Carson's portfolio, showcasing projects, education, and environmental initiatives.">
+    <meta property="og:url" content="https://solar.markcarson.dev">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://solar.markcarson.dev/images/preview.png">
+    
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mark Carson - Software Engineer & Data Scientist">
+    <meta name="twitter:description" content="Explore Mark Carson's portfolio, showcasing projects, education, and environmental initiatives.">
+    <meta name="twitter:image" content="https://solar.markcarson.dev/images/preview.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://solar.markcarson.dev/favicon.ico" type="image/x-icon">
+
+    <title>Mark Carson</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="banner">
+            <div id="stamp">
+                <a href="https://solar.markcarson.dev" >markcarson.dev</a>
+            </div>
+            <div id="message">
+                <p>This site will soon be solar-powered. <a href="">Read why.</a>
+            </div>
+            <div id="items">
+                <div class="theme-switch-wrapper">
+                    <div class="theme-switch keypress" id="kpD">
+                        <span id="theme-icon" class="theme-icon">
+                            <svg></svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav id="sidebar">
+            <ul>
+                <a href="#"><li id="kp1" class="keypress">Home</li></a>
+                <a href="#about"><li id="kp2" class="keypress">About</li></a>
+                <a href="#projects"><li id="kp3" class="keypress">Projects</li></a>
+                <a href="#education"><li id="kp4" class="keypress">Education</li></a>
+                <li class="listsep"></li>
+                <a href="blog.html"><li id="kpB" class="keypress">Blog</li></a>
+                <a href="#contact"><li id="kpC" class="keypress">Contact</li></a>
+
+            </ul>
+        </nav>
+        <div id="content">
+            <div id="home">
+                <h1>Hi, I'm<br><span id="nameplate">Mark Carson</span></h1>
+                <h2>Software Engineer, Data Scientist, Environmentalist</h2>
+                <p>A programmer of 8 years. Strongly motivated to help people, animals, and the planet.
+
+            </div>
+
+            <div id="about">
+                <h2>About</h2>
+                <p>Welcome to my website. I've made this as a simple hub for anything I'd like to show off and talk about.</p>
+                <p>Wait, what are you doing here? I'm still building this!</p>
+            </div>
+
+            <div id="projects">
+                <h2>Projects</h2>
+                <ul>
+{p}{#
+
+result = ''
+sorted_posts = sorted(data["all_blog_posts"]["data"], key=lambda x: x["date_posted"], reverse=True)
+filtered_projects = [item for item in sorted_posts if "project" in item.get("tags", [])]
+for project in filtered_projects:
+    full_url = '../' + project['full_url']
+    result += f'''
+    <a href="{full_url}" class="project-tile">
+        <h2>{project["title"]}</h2>
+        {'' if not project["featured"] else '<span class="featured-tag">Featured</span>'}
+    </a>
+    '''
+result
+
+
+#}
+                </ul>
+            </div>
+
+{p}{#
+
+result = ''
+sorted_posts = sorted(data["all_blog_posts"]["data"], key=lambda x: x["date_posted"], reverse=True)[:3]
+for post in sorted_posts:
+    truncated_description = (post["description"][:100] + '<span class="truncation">...</span>') if len(post["description"]) > 100 else post["description"]
+    full_url = '../' + post['full_url']
+    result += f'''
+    <a href="{full_url}" class="blog-tile" style='background-image: {post["cover_img"]}'>
+        <h2>{post["title"]}</h2>
+        <p>{post["author"]}</p>
+        <p>{post["date_posted"]}</p>
+        <p>{truncated_description}</p>
+        {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
+    </a>
+    '''
+result
+        
+                #}
+
+            <div id="education">
+                <h2>Education</h2>
+                <p>I graduated with my undergraduate degree, a B.Sc. Computer Science, with a GPA of 3.5 from California State University, Long Beach in December of 2024. But that's just my formal education; my time spent learning extends far before university and will continue to the day I die.</p>
+
+                <p>I first taught myself how to program using the resources available to me at the age of 14. My first project was a NodeJS bot to help me host fair and competitive pick-up games for my favorite video game at the time. From this, I built out an organization adn auxilary website to provide new users with the tools to improve.</p>
+
+                <p>It was with this large project that I learned the power of self-driven education. I continue to carry this principle to every problem I solve, and make considerable effort to remain adaptable to available tools and technologies.</p>
+            </div>
+        </div>
+        <div id="footer">
+            <p>Designed intentionally to be lightweight.</p>
+            <p>Efficiently compiled using <a href="">Sonne</a>, my static site generator.</a></p>
+            <p>Built from scratch in 2025 using simple HTML, JS, and CSS.</p>
+
+        </div>
+    </div>
+
+    
+
+    <script src="script.js"></script>
+</body>
+</html>

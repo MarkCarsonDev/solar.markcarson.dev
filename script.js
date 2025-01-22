@@ -1,0 +1,103 @@
+document.addEventListener("DOMContentLoaded", function () {
+	initializeLightDarkSwitch();
+	initializeKeypressNavigator();
+});
+
+function initializeLightDarkSwitch() {
+	const themeToggle = document.getElementsByClassName("theme-switch")[0];
+	let isThrottled = false; // Flag for debounce
+	document.documentElement.setAttribute("data-theme", "light");
+	updateLightDark();
+
+	themeToggle.addEventListener("click", function () {
+		// Prevent toggling too rapidly
+		if (isThrottled) return;
+
+		// Set the flag and apply the animation
+		isThrottled = true;
+		themeToggle.classList.add("debounce-active");
+
+		// Remove the animation and reset the flag after 1 second
+		setTimeout(() => {
+			isThrottled = false;
+			themeToggle.classList.remove("debounce-active");
+		}, 500);
+
+		// Update the theme
+		updateLightDark();
+	});
+}
+
+function updateLightDark() {
+	const sunSvg = `
+		<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="12" cy="12" r="5" stroke="var(--icon-color)" stroke-width="1.5"></circle>
+			<path d="M12 2V4" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M12 20V22" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M4 12L2 12" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M22 12L20 12" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M19.7778 4.22266L17.5558 6.25424" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M4.22217 4.22266L6.44418 6.25424" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M6.44434 17.5557L4.22211 19.7779" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+			<path d="M19.7778 19.7773L17.5558 17.5551" stroke="var(--icon-color)" stroke-width="1.5" stroke-linecap="round"></path>
+		</svg>`;
+
+	const moonSvg = `
+	<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M11.203 6.02337C7.59276 6.99074 5.45107 10.6948 6.41557 14.2943C7.38006 17.8938 11.0868 20.0307 14.6971 19.0634C16.1096 18.6849 17.2975 17.8877 18.1626 16.8409C15.1968 17.3646 12.2709 15.546 11.4775 12.585C10.7644 9.92365 12.0047 7.20008 14.3182 5.92871C13.3186 5.72294 12.2569 5.74098 11.203 6.02337ZM4.96668 14.6825C3.78704 10.2801 6.40707 5.75553 10.8148 4.57448C12.968 3.99752 15.1519 4.3254 16.9581 5.32413L16.6781 6.72587C16.4602 6.75011 16.241 6.79108 16.0218 6.8498C13.6871 7.47537 12.303 9.8703 12.9264 12.1968C13.5497 14.5233 15.9459 15.9053 18.2806 15.2797C18.7257 15.1604 19.1351 14.9774 19.5024 14.7435L20.5991 15.6609C19.6542 17.9633 17.6796 19.8171 15.0853 20.5123C10.6776 21.6933 6.14631 19.085 4.96668 14.6825Z" fill="var(--icon-color)">
+		</path>
+	</svg>`;
+	const themeIcon = document.getElementById("theme-icon");
+	const currentTheme = document.documentElement.getAttribute("data-theme");
+
+	if (currentTheme === "light") {
+		document.documentElement.setAttribute("data-theme", "dark");
+		themeIcon.innerHTML = moonSvg;
+	} else {
+		document.documentElement.setAttribute("data-theme", "light");
+		themeIcon.innerHTML = sunSvg;
+	}
+}
+
+function initializeKeypressNavigator() {
+	// Find all elements with the class 'keypress'
+	const keypressElements = document.querySelectorAll(".keypress");
+
+	keypressElements.forEach(function (item) {
+		const id = item.id.toLowerCase();
+
+		// Check if the ID starts with 'kp'
+		if (id && id.startsWith("kp")) {
+			// Remove 'kp' prefix and set the rest as the element's content
+			const keyChar = id.slice(2);
+			// item.textContent = keyChar;
+
+			// create an element with class "keypress_icon"
+			const div = document.createElement("div");
+			const span = document.createElement("span");
+			span.className = "keycap";
+			span.textContent = keyChar.toUpperCase();
+			item.appendChild(span);
+
+			// Append the div to the body or a specific container
+			document.body.appendChild(div);
+
+			// Listen for keypress events
+			document.addEventListener("keydown", function (event) {
+				console.log(keyChar);
+				if (event.key.toLowerCase() === keyChar) {
+					const keycap = item.querySelector(".keycap");
+					keycap.classList.add("depressed");
+					item.click();
+				}
+			});
+
+			document.addEventListener("keyup", function (event) {
+				if (event.key.toLowerCase() === keyChar) {
+					const keycap = item.querySelector(".keycap");
+					keycap.classList.remove("depressed");
+				}
+			});
+		}
+	});
+}

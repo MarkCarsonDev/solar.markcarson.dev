@@ -6,10 +6,11 @@ description: About Sonne, the ecstatically simple and lightweight static-site ge
 author: Mark
 page_url: about-sonne
 cover_img: ./img/shavthan.jpeg
+tags: project
 ---
 # What?
 
-Sonne is a static-site generator. Now I know what you're asking, _what does that mean?_. A few things, actually!
+Sonne is a static-site generator. Now I know what you're asking, _what does that mean?_ A few things, actually!
 
 # Sonne - A simple static site generator for minimally footprinted blogs and showcases
 
@@ -30,11 +31,11 @@ If Sonne hasn't already done configuration in that folder, it will enter setup m
 
 ### Variables
 
-To include a Sonne variable inline in ANY of your documents, like your solar setup's battery percentage, Sonne looks for the following a simple format `{+}{battery_level}`. This can be escaped with a backslash \{+}{variable_name}.
+To include a Sonne variable inline in ANY of your documents, like your solar setup's battery percentage, Sonne looks for the following a simple format `{+}{battery_level}`. This can be escaped with a backslash to show the end-user \{+}{variable_name}.
 
 Just to get your imagination going, these variables can be entire HTML elements too, just imagine you're editing the innerHTML in JS.
 
-These variables are will be stored in the directory where Sonne was run from, your webpage directory. To populate these, Sonne will run any python scripts that are placed in the /sonne_sources directory. From these, simply `import sonne_source` and return a value to Sonne by calling `sonne_source.return(variable_name, data)` which will write or overwrite the stored variable_name with the provided data. Easy enough, yeah?
+These variables are will be stored in the directory where Sonne was run from, your webpage directory. To populate these, Sonne will run any python scripts that are placed in the /sonne_sources directory. From these, simply `import sonne_source` and return a value to Sonne by calling `sonne_source.return(variable_name, data)` which will write or overwrite the stored variable_name with the provided data. 
 
 ### Blogging
 
@@ -46,6 +47,7 @@ By default, Sonne will crawl your /blog directory for .md files and write pages 
 - title
 - subtitle
 - category
+- tags
 
 ### Images
 
