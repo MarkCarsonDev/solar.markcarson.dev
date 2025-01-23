@@ -80,26 +80,6 @@ result
                 </ul>
             </div>
 
-{p}{#
-
-result = ''
-sorted_posts = sorted(data["all_blog_posts"]["data"], key=lambda x: x["date_posted"], reverse=True)[:3]
-for post in sorted_posts:
-    truncated_description = (post["description"][:100] + '<span class="truncation">...</span>') if len(post["description"]) > 100 else post["description"]
-    full_url = '../' + post['full_url']
-    result += f'''
-    <a href="{full_url}" class="blog-tile" style='background-image: {post["cover_img"]}'>
-        <h2>{post["title"]}</h2>
-        <p>{post["author"]}</p>
-        <p>{post["date_posted"]}</p>
-        <p>{truncated_description}</p>
-        {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
-    </a>
-    '''
-result
-        
-                #}
-
             <div id="education">
                 <h2>Education</h2>
                 <p>I graduated with my undergraduate degree, a B.Sc. Computer Science, with a GPA of 3.5 from California State University, Long Beach in December of 2024. But that's just my formal education; my time spent learning extends far before university and will continue to the day I die.</p>
@@ -109,13 +89,7 @@ result
                 <p>It was with this large project that I learned the power of self-driven education. I continue to carry this principle to every problem I solve, and make considerable effort to remain adaptable to available tools and technologies.</p>
             </div>
         </div>
-        <div id="footer">
-            <p>Designed intentionally to be lightweight.</p>
-            <p>Efficiently compiled using <a href="https://github.com/MarkCarsonDev/Sonne">Sonne</a>, my static site generator.</a></p>
-            <p>Kept dynamically static with an elegant but simple homemade CI/CD solution.</p>
-            <p>Built from scratch in 2025 using simple HTML, JS, and CSS.</p>
-
-        </div>
+        {+}{footer}
     </div>
 
     
