@@ -11,7 +11,7 @@ sidebar_html = '<nav id="sidebar">\
             </ul>\
         </nav>'
 
-sidebar_html = '<nav id="sidebar">\
+sidebar_blog_html = '<nav id="sidebar">\
             <ul>\
                 <a href="/blog"><li id="kpM" class="keypress">Main Page</li></a>\
                 <a href="#contact"><li id="kpC" class="keypress">Contact</li></a>\
