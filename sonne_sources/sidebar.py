@@ -6,15 +6,15 @@ sidebar_html = '<nav id="sidebar">\
                 <a href="#education"><li id="kp4" class="keypress">Education</li></a>\
                 <li class="listsep"></li>\
                 <a href="/blog"><li id="kpB" class="keypress">Blog</li></a>\
-                <a href="#contact"><li id="kpC" class="keypress">Contact</li></a>\
+                <a href="/contact"><li id="kpC" class="keypress">Contact</li></a>\
 \
             </ul>\
         </nav>'
 
 sidebar_blog_html = '<nav id="sidebar">\
             <ul>\
-                <a href="/blog"><li id="kpM" class="keypress">Main Page</li></a>\
-                <a href="#contact"><li id="kpC" class="keypress">Contact</li></a>\
+                <a href="/"><li id="kpM" class="keypress">Home</li></a>\
+                <a href="/contact"><li id="kpC" class="keypress">Contact</li></a>\
 \
             </ul>\
         </nav>'
