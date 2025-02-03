@@ -13,7 +13,7 @@ sidebar_html = '<nav id="sidebar">\
 
 sidebar_blog_html = '<nav id="sidebar">\
             <ul>\
-                <a href="/"><li id="kpM" class="keypress">Home</li></a>\
+                <a href="/"><li id="kpH" class="keypress">Home</li></a>\
                 <a href="/contact"><li id="kpC" class="keypress">Contact</li></a>\
 \
             </ul>\
