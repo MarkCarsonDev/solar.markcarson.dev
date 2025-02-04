@@ -164,10 +164,16 @@ body {
 a, .keypress {
     color: var(--text-color);
     cursor: pointer;
+    text-decoration: none;
 
     &:hover {
         background-color: var(--bg-hover)
     }
+}
+
+.keypress > :first-child {
+    text-decoration: underline;
+
 }
 
 .keycap {
