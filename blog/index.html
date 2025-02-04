@@ -45,12 +45,14 @@ for post in sorted_posts:
     truncated_description = (post["description"][:100] + '<span class="truncation">...</span>') if len(post["description"]) > 100 else post["description"]
     full_url = '../' + post['full_url']
     result += f'''
-    <a href="{full_url}" class="blog-tile" style='background-image: {post["cover_img"]}'>
-        <h2 class="title">{post["title"]}</h2>
-        <p class="date_posted">{post["date_posted"]}</p>
-        <p class="description">{truncated_description}</p>
-        {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
-    </a>
+    <div class="blog-tile" style='background-image: {post["cover_img"]}'>
+        <a href="{full_url}">
+            <h2 class="title">{post["title"]}</h2>
+            <p class="date_posted">{post["date_posted"]}</p>
+            <p class="description">{truncated_description}</p>
+            {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
+        </a>
+    </div>
     '''
 result
 #}
