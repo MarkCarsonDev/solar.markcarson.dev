@@ -1,9 +1,11 @@
 .blog-tile {
     display: flex;
-    border-radius: 1rem;
-    border: 1px white solid;
+    & a {
+        border-radius: 1rem;
+        border: 1px white solid;
+    }
 
-    &.title {
+    & .title {
         text-decoration: underline;
     }
 
