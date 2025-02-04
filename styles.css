@@ -170,6 +170,14 @@ a, .keypress {
     }
 }
 
+.keypress {
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .keycap {
     background-color: var(--bg);
     box-shadow: 0 5px 1.5px var(--shadow);
