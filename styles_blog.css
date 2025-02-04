@@ -1,8 +1,13 @@
 .blog-tile {
     display: flex;
+    padding: 1rem;
+    margin: 1rem;
+    width: 50%;
+
     & a {
         border-radius: 1rem;
         border: 1px white solid;
+        width: 100%;
     }
 
     & .title {
