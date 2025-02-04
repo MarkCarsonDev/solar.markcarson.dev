@@ -130,20 +130,36 @@ function initializeKeypressNavigator() {
 		// Check if the ID starts with 'kp'
 		if (id && id.startsWith("kp")) {
 			// Remove 'kp' prefix and set the rest as the element's content
-			const keyChar = id.slice(2);
+			let keyChar = id.slice(2);
 
 			// Create an element with class "keypress_icon"
 			const div = document.createElement("div");
 			const span = document.createElement("span");
 			span.className = "keycap";
-			span.textContent = keyChar.toUpperCase();
+
+			// Special case for arrow keys: if the keyChar matches "arrowleft" or "arrowright", set the symbol
+			if (keyChar === "arrowleft") {
+				span.textContent = "←";
+			} else if (keyChar === "arrowright") {
+				span.textContent = "→";
+			} else if (keyChar === "arrowup") {
+				span.textContent = "↑";
+			} else if (keyChar === "arrowdown") {
+				span.textContent = "↓";
+			} else {
+				// Default behavior for other keys: display the key character as uppercase
+				span.textContent = keyChar.toUpperCase();
+			}
+
 			item.appendChild(span);
 
-			// Append the div to the body or a specific container if desired
+			// Optionally, append the div to the body or another container if needed
 			document.body.appendChild(div);
 
 			// Listen for keydown events
 			document.addEventListener("keydown", function (event) {
+				// Convert the event key to lowercase for comparison.
+				// For arrow keys, event.key will be "ArrowLeft", "ArrowRight", etc.
 				if (event.key.toLowerCase() === keyChar) {
 					const keycap = item.querySelector(".keycap");
 					keycap.classList.add("depressed");
