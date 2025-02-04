@@ -170,14 +170,6 @@ a, .keypress {
     }
 }
 
-.keypress {
-    text-decoration: none;
-    
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
 .keycap {
     background-color: var(--bg);
     box-shadow: 0 5px 1.5px var(--shadow);
@@ -192,11 +184,18 @@ a, .keypress {
     justify-content: center;
     align-items: center;
     transition: box-shadow 0.1s, transform 0.1s, background-color 0.1s;
+    text-decoration: none !important;
+
 
     &.depressed {
         box-shadow: 0 0px 0px var(--bg-hover);
         transform: translateY(5px);
         background-color: var(--bg-hard);
+    }
+
+
+    &:hover {
+        text-decoration: underline;
     }
 }
 
