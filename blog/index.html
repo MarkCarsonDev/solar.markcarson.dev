@@ -46,10 +46,9 @@ for post in sorted_posts:
     full_url = '../' + post['full_url']
     result += f'''
     <a href="{full_url}" class="blog-tile" style='background-image: {post["cover_img"]}'>
-        <h2>{post["title"]}</h2>
-        <p>{post["author"]}</p>
-        <p>{post["date_posted"]}</p>
-        <p>{truncated_description}</p>
+        <h2 class="title">{post["title"]}</h2>
+        <p class="date_posted">{post["date_posted"]}</p>
+        <p class="description">{truncated_description}</p>
         {'' if not post["featured"] else '<span class="featured-tag">Featured</span>'}
     </a>
     '''

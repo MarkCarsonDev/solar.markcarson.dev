@@ -1,0 +1,11 @@
+.blog-tile {
+    display: flex;
+    border-radius: 1rem;
+    border: 1px white solid;
+
+    &.title {
+        text-decoration: underline;
+    }
+
+
+}
