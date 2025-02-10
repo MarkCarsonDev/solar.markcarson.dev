@@ -57,10 +57,12 @@ filtered_projects = [item for item in sorted_posts if "project" in item.get("tag
 for project in filtered_projects:
     full_url = '../' + project['full_url']
     result += f'''
-    <a href="{full_url}" class="project-tile">
-        <h2>{project["title"]}</h2>
-        {'' if not project["featured"] else '<span class="featured-tag">Featured</span>'}
-    </a>
+    <li>
+        <a href="{full_url}" class="project-tile">
+            <h2>{project["title"]}</h2>
+            {'' if not project["featured"] else '<span class="featured-tag">Featured</span>'}
+        </a>
+    </li>
     '''
 result
 

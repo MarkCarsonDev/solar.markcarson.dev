@@ -267,5 +267,18 @@ a, .keypress {
     visibility: visible;
 }
 
+#projects ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+.project-tile {
+    width: 3rem;
+    height: 4rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    overflow: hidden;
+}
 
 
