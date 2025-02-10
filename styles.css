@@ -271,6 +271,7 @@ a, .keypress {
     display: flex;
     flex-direction: row;
     list-style: none;
+    overflow-x: scroll;
 }
 
 li:has(.project-tile) {
