@@ -276,12 +276,11 @@ a, .keypress {
 
 li:has(.project-tile) {
     border-radius: 0.5em;
-    border: 1px solid var(--text-color);
+    border: 0.1px solid var(--text-color);
     display: flex;
-    width: 8rem;
-    height: 14rem;
+    width: 35vh;
+    height: 35vh;
     margin: 0.5rem;
-
 
     .project-tile {
         overflow: hidden;
