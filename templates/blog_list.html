@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Blog — {{ site.author }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/css/styles_blog.css">
+{% endblock %}
+
+{% block content %}
+{% from "macros.html" import breadcrumb %}
+<div class="blog-list">
+    {{ breadcrumb([{'label': 'Blog', 'url': '/blog/'}]) }}
+    <header class="blog-list-header">
+        <h1>Blog</h1>
+    </header>
+
+    {% if all_blog_posts %}
+    <div class="blog-grid">
+        {% for post in all_blog_posts %}
+        <div class="blog-card">
+            <a href="{{ post.full_url }}" class="blog-card-cover-link">
+                <div class="blog-card-cover">
+                    {% if post.cover_img_dithered %}
+                    <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}"
+                         alt="{{ post.title }}" loading="lazy">
+                    {% endif %}
+                </div>
+            </a>
+            <div class="blog-card-body">
+                <a href="/blog/{{ post.date_str|replace('-', '/') }}/" class="blog-card-date">{{ post.date_str }}</a>
+                <a href="{{ post.full_url }}" class="blog-card-title">{{ post.title }}</a>
+                {% if post.excerpt %}
+                <p class="blog-card-desc">{{ post.excerpt|truncate(140, False, '…') }}</p>
+                {% endif %}
+                {% if post.tags %}
+                <div class="blog-card-tags">
+                    {% for tag in post.tags %}
+                    <a href="/blog/tags/{{ tag|slugify }}/" class="blog-card-tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No blog posts yet.</p>
+    {% endif %}
+
+    {% if page.pagination and page.pagination.total > 1 %}
+    <nav class="pagination">
+        {% if page.pagination.has_prev %}
+        <a href="{{ page.pagination.prev_url }}" class="pagination-prev">← Previous</a>
+        {% else %}
+        <span class="pagination-prev disabled">← Previous</span>
+        {% endif %}
+        <span class="pagination-info">Page {{ page.pagination.current }} of {{ page.pagination.total }}</span>
+        {% if page.pagination.has_next %}
+        <a href="{{ page.pagination.next_url }}" class="pagination-next">Next →</a>
+        {% else %}
+        <span class="pagination-next disabled">Next →</span>
+        {% endif %}
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

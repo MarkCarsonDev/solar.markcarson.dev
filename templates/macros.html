@@ -1,0 +1,6 @@
+{% macro breadcrumb(crumbs) %}
+<nav class="post-breadcrumb" aria-label="Post location">
+    {% for crumb in crumbs %}<a href="{{ crumb.url }}">{{ crumb.label }}</a><span class="bc-sep">/</span>
+    {% endfor %}
+</nav>
+{% endmacro %}

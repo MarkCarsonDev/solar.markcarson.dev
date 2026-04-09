@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ site.author }}'s Blog{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/css/styles_post.css">
+{% endblock %}
+
+{% block content_class %}class="with-sidebar"{% endblock %}
+
+{% block sidebar %}
+<nav id="sidebar" class="blog-post-sidebar">
+    <ul>
+        {# Prev/Next arrows #}
+        <li class="sidebar-arrows">
+            {% if page.prev_post %}
+            <a href="{{ page.prev_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWLEFT" rel="prev" title="{{ page.prev_post.title }}">‹</a>
+            {% else %}
+            <span class="sidebar-arrow-btn disabled">‹</span>
+            {% endif %}
+            {% if page.next_post %}
+            <a href="{{ page.next_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWRIGHT" rel="next" title="{{ page.next_post.title }}">›</a>
+            {% else %}
+            <span class="sidebar-arrow-btn disabled">›</span>
+            {% endif %}
+        </li>
+
+        {# Scrollable posts list #}
+        {% if all_blog_posts %}
+        <li class="sidebar-posts-wrapper">
+            <ul class="sidebar-posts-list" id="posts-list">
+                {% for post in all_blog_posts %}
+                <li class="sidebar-post-item{% if post.slug == page.slug %} current-post{% endif %}"
+                    {% if post.slug == page.slug %}id="current-post"{% endif %}>
+                    <a href="{{ post.full_url }}">
+                        <span class="sidebar-post-title">{{ post.title }}</span>
+                        <span class="sidebar-post-date">{{ post.date_str }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endif %}
+
+        <li class="listsep"></li>
+        <a href="/"><li id="kpH" class="keypress"><span>Home</span><span class="keycap">H</span></li></a>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="blog-post-container">
+    <article class="blog-post">
+
+        {# Breadcrumb — no title, trailing slash #}
+        {% from "macros.html" import breadcrumb %}
+        {% if page.date_str %}
+        {% set dp = page.date_str.split('-') %}
+        {{ breadcrumb([
+            {'label': 'Blog',                          'url': '/blog/'},
+            {'label': dp[0],                           'url': '/blog/' ~ dp[0] ~ '/'},
+            {'label': page.date_posted.split(' ')[0],  'url': '/blog/' ~ dp[0] ~ '/' ~ dp[1] ~ '/'},
+            {'label': dp[2]|int,                       'url': '/blog/' ~ dp[0] ~ '/' ~ dp[1] ~ '/' ~ dp[2] ~ '/'},
+        ]) }}
+        {% endif %}
+
+        <h1 class="post-title">{{ page.title }}</h1>
+
+        {# Cover image — below title #}
+        {% if page.cover_img_original %}
+        <figure class="dithered-image-figure post-cover-figure">
+          <div class="image-wrapper">
+            <img src="./{{ page.cover_img_dithered }}"
+                 data-dithered-src="./{{ page.cover_img_dithered }}"
+                 data-original-src="./{{ page.cover_img_original }}"
+                 {% if page.cover_img_dithered_kb %}data-dithered-size="{{ page.cover_img_dithered_kb }}"{% endif %}
+                 {% if page.cover_img_original_kb %}data-original-size="{{ page.cover_img_original_kb }}"{% endif %}
+                 {% if page.cover_img_reduction %}data-size-reduction="{{ page.cover_img_reduction }}"{% endif %}
+                 class="dithered-image active" alt="{{ page.title }}" loading="lazy">
+          </div>
+          <figcaption>
+            <span class="caption-text">Cover{% if page.cover_img_dithered_kb and page.cover_img_reduction %} · {{ page.cover_img_dithered_kb }} (−{{ page.cover_img_reduction }}%){% endif %}</span>
+            <button class="request-original-btn"{% if page.cover_img_original_kb %} data-original-size="{{ page.cover_img_original_kb }}"{% endif %}><span class="btn-text">view original</span></button>
+          </figcaption>
+        </figure>
+        {% endif %}
+
+        <div class="post-content">
+            {{ content|safe }}
+        </div>
+
+        {# Post footer — date, author, tags (Pluralistic style: bottom of article) #}
+        <footer class="post-footer">
+            <div class="post-meta">
+                <time datetime="{{ page.date_str }}">{{ page.date_posted }}</time>
+                {% if page.date_edited and page.date_edited != page.date_posted %}
+                <span class="meta-sep">·</span>
+                <span>Updated {{ page.date_edited }}</span>
+                {% endif %}
+                <span class="meta-sep">·</span>
+                <span>{{ page.author|default(site.author) }}</span>
+            </div>
+            {% if page.tags %}
+            <div class="post-tags">
+                {% for tag in page.tags %}
+                <a href="/blog/tags/{{ tag|slugify }}/" class="post-tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </footer>
+
+        {# Related posts strip #}
+        {% if page.related_posts %}
+        <section class="related-posts" aria-label="More posts">
+            <h2 class="related-posts-heading">More posts</h2>
+            <div class="related-posts-grid">
+                {% for rp in page.related_posts %}
+                <div class="related-post-card">
+                    <a href="{{ rp.full_url }}" class="related-post-cover-link">
+                        <div class="related-post-cover">
+                            {% if rp.cover_img_dithered %}
+                            <img src="{{ rp.full_url.rstrip('/') }}/{{ rp.cover_img_dithered }}"
+                                 alt="{{ rp.title }}" loading="lazy">
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div class="related-post-info">
+                        <a href="{{ rp.full_url }}" class="related-post-title">{{ rp.title }}</a>
+                        <a href="/blog/{{ rp.date_str|replace('-', '/') }}/" class="related-post-date">{{ rp.date_str }}</a>
+                        {% if rp.tags %}
+                        <div class="related-post-tags">
+                            {% for tag in rp.tags %}
+                            <a href="/blog/tags/{{ tag|slugify }}/" class="related-post-tag">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+    </article>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-scroll to center the current post in the sidebar list
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPost = document.getElementById('current-post');
+    const postsList = document.getElementById('posts-list');
+
+    if (currentPost && postsList) {
+        setTimeout(function() {
+            const wrapper = postsList.closest('.sidebar-posts-wrapper') || postsList.parentElement;
+            const wrapperHeight = wrapper ? wrapper.clientHeight : postsList.clientHeight;
+            const itemTop = currentPost.offsetTop;
+            const itemHeight = currentPost.clientHeight;
+            const scrollParent = wrapper || postsList;
+            scrollParent.scrollTop = itemTop - (wrapperHeight / 2) + (itemHeight / 2);
+        }, 100);
+    }
+});
+</script>
+{% endblock %}

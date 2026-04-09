@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.tag }} — Blog — {{ site.author }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/css/styles_blog.css">
+{% endblock %}
+
+{% block content %}
+{% from "macros.html" import breadcrumb %}
+<div class="blog-list">
+    {{ breadcrumb([
+        {'label': 'Blog', 'url': '/blog/'},
+        {'label': 'Tags', 'url': '/blog/tags/'},
+        {'label': page.tag, 'url': '/blog/tags/' ~ page.tag_slug ~ '/'}
+    ]) }}
+
+    <header class="blog-list-header">
+        <h1>{{ page.tag }}</h1>
+    </header>
+
+    {% if page.posts %}
+    <div class="blog-grid">
+        {% for post in page.posts %}
+        <div class="blog-card">
+            <a href="{{ post.full_url }}" class="blog-card-cover-link">
+                <div class="blog-card-cover">
+                    {% if post.cover_img_dithered %}
+                    <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}"
+                         alt="{{ post.title }}" loading="lazy">
+                    {% endif %}
+                </div>
+            </a>
+            <div class="blog-card-body">
+                <a href="/blog/{{ post.date_str|replace('-', '/') }}/" class="blog-card-date">{{ post.date_str }}</a>
+                <a href="{{ post.full_url }}" class="blog-card-title">{{ post.title }}</a>
+                {% if post.tags %}
+                <div class="blog-card-tags">
+                    {% for tag in post.tags %}
+                    <a href="/blog/tags/{{ tag|slugify }}/" class="blog-card-tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No posts found for this tag.</p>
+    {% endif %}
+
+    <nav class="archive-nav">
+        <a href="/blog/tags/">← All tags</a>
+    </nav>
+</div>
+{% endblock %}

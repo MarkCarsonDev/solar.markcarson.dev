@@ -1,0 +1,73 @@
+# Sonne Configuration
+# Migrated from old sonne.config format
+
+site:
+  title: "Solar Mark Carson Dev"  # Update this with your site name
+  base_url: "https://solar.markcarson.dev"  # Update with your actual URL
+  description: "A site built with Sonne"
+  author: "Mark Carson"
+  language: "en"
+
+paths:
+  content: "content"        # Directory containing your pages and blog posts
+  output: "build"           # Local output directory (change to /var/www/html for production)
+  static: "static"          # Create this directory for CSS, JS, images
+  templates: "templates"    # Create this directory for your templates
+  data: "data"
+  scripts: "scripts"        # Python data scripts (banner, footer, sidebar, random_intro)
+  cache: ".cache"
+
+blog:
+  enabled: true
+  directory: "blog"         # From your old BlogDirectory
+  template: "blog_post.html"
+  list_template: "blog_list.html"
+  posts_per_page: 10
+  excerpt_length: 200
+  url_pattern: "{year}/{month}/{day}/{slug}"
+  include_drafts: false
+  rss:
+    enabled: true        # set to false to disable feed.xml generation
+    path: "feed.xml"
+    max_items: 20
+  date_archives: true          # generates /blog/YYYY/ and /blog/YYYY/MM/ pages
+  archive_template: "archive.html"
+
+images:
+  dither: true
+  dither_method: bayer       # bayer (default) | grayscale | 1bit | threshold | color_median | color_octree | color_lab
+  dither_colors: 4           # levels/colors for methods that support it (2–256)
+  dither_sizes: [400]        # sizes to generate dithered versions at (default: smallest only)
+  dither_formats: ["webp"]   # formats for dithered saves — webp is smaller and faster than png
+  blog_dithered_max_width: 400   # resize dithered blog images to this width
+  blog_original_max_width: 1600  # cap the "view original" at this width
+  dither_cover_images: true      # dither cover images like other blog images
+  optimize: true
+  formats: ["webp", "png"]   # formats for original (non-dithered) saves
+  sizes: [1200, 800, 400]    # sizes to generate originals at
+  webp_method: 0             # WebP encoding speed for dithered: 0 (fastest) – 6 (best compression)
+  webp_method_original: 4    # WebP encoding speed for originals: 0 (fastest) – 6 (best compression)
+  parallel: true             # process multiple images concurrently
+  parallel_workers: 4        # max parallel workers (null = auto based on CPU count)
+  lazy_loading: true
+
+variables:
+  file: "sonne_variables.json"  
+  preserve_prior: true         
+
+security:
+  allow_embedded_python: true
+  csp:
+    enabled: false
+
+url_style:
+  prod: "clean"
+  dev: "directory"
+
+environment: "prod"
+
+build:
+  incremental: true
+  show_progress: true
+  statistics: true
+  show_page_size: true
