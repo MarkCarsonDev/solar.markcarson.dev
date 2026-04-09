@@ -16,7 +16,7 @@
 
 [data-theme="light"] {
     --bg: #eae9e1;
-    --bg-hard: fff;
+    --bg-hard: #fff;
     --bg-hover: #10101014;
     --shadow: #10101088;
     --text-color: #101010;
@@ -149,7 +149,7 @@ body {
     border-top: var(--hairline);
     font-family: var(--font-mono);
     font-size: 0.65rem;
-    opacity: 0.4;
+    opacity: 0.6;
     letter-spacing: 0.03em;
 }
 
