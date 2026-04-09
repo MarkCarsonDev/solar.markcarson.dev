@@ -2,3 +2,5 @@ sonne_variables.json
 *.pyc
 /output
 *.env
+/build
+/.cache

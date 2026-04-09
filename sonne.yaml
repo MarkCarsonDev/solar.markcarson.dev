@@ -52,8 +52,8 @@ images:
   lazy_loading: true
 
 variables:
-  file: "sonne_variables.json"  
-  preserve_prior: true         
+  file: "sonne_variables.json"
+  preserve_prior: true
 
 security:
   allow_embedded_python: true
@@ -71,3 +71,6 @@ build:
   show_progress: true
   statistics: true
   show_page_size: true
+
+serve:
+  host: "0.0.0.0"

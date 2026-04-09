@@ -8,17 +8,18 @@ tags:
   - solar
   - web
   - performance
+cover_img: ./img/seattle_flowers.jpg
 ---
 
 [TOC]
 
-This site runs on a solar panel mounted outside a window. When the battery runs low, the site goes offline --- not a fallback server, not a CDN, just gone until the sun charges it back up. That constraint makes every kilobyte a deliberate choice.
+This site runs on a few panels laying haphazardly on my apartment balcony. When the battery runs low, the site goes offline -  and stays offline -  until the sun comes back up. So, why run a site like this when all of my friends are shipping 200 MB game engines to their visitors browsers?
 
 ## Why Page Weight Matters {#weight}
 
-The average webpage in 2024 transferred around 2.6 MB to load.[^httparchive] For a solar-powered server drawing around 3W idle and peaking at 7W under load, serving that page to a thousand visitors costs meaningful watt-hours --- real energy with a real source.
+The average webpage in 2024 transferred around 2.6 MB to load.[^httparchive] For a solar-powered server drawing around 3W idle and peaking at 7W under load, serving that page to a thousand visitors costs meaningful watt-hours. 
 
-But the server-side cost is only half the story. Every visitor's device also has to download, decode, and render that payload. On a phone on a slow connection, 2.6 MB takes seconds and drains a real percentage of someone else's battery too. The weight of a page doesn't disappear when it leaves the server --- it just moves.
+But the server-side cost is only half the story. Every visitor's device also has to download, decode, and render that payload. On a phone on a slow connection, 2.6 MB takes seconds and drains some of someone else's battery too. The weight of a page doesn't disappear when it leaves the server.
 
 This site targets under 100 KB per page transfer, uncompressed.
 
@@ -26,14 +27,14 @@ This site targets under 100 KB per page transfer, uncompressed.
 
 A few things actually move the needle on page weight:
 
-Dithering
-:   Converting full-color photographs to a small indexed palette before serving them. A 400px wide dithered PNG is typically 8--25 KB versus 80--200 KB for an equivalent JPEG. The originals are kept and served on demand --- only when you ask for them.
+Downscaling and dithering
+:   Generally, images are the biggest ticket item for a page. Converting full-color photographs to a small indexed palette before serving them. A 400px wide dithered PNG is typically 8--25 KB versus 80--200 KB for an equivalent JPEG. 
 
 Static generation
-:   No database queries, no server-side rendering per request. The HTML is pre-built at deploy time and served directly from disk. The server does almost no computation per visit.
+:   No database queries, no server-side rendering per request. The HTML is pre-built at deploy time and served directly from SD card. The server does almost no computation per visit.
 
 System fonts
-:   Using `monospace` and `serif` font stacks means zero font files are ever downloaded. The browser uses whatever the OS ships --- usually something good enough.
+:   Using `monospace` and `serif` font stacks means zero font files are ever downloaded. The browser uses whatever the OS ships, which is good enough to read with..
 
 No JS frameworks
 :   The only JS on this site handles the dither/original image toggle and keyboard navigation. It's under 2 KB, inline, and adds no network round-trips.
