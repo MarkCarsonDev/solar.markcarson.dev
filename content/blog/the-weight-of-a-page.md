@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: The Weight of a Page
 date: 2026-04-06
 date_edited: auto
