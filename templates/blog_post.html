@@ -43,7 +43,7 @@
         {% endif %}
 
         <li class="listsep"></li>
-        <a href="/"><li id="kpH" class="keypress"><span>Home</span><span class="keycap">H</span></li></a>
+        <li id="kpH" class="keypress"><a href="/"><span>Home</span><span class="keycap">H</span></a></li>
     </ul>
 </nav>
 {% endblock %}
@@ -76,7 +76,7 @@
                  {% if page.cover_img_dithered_kb %}data-dithered-size="{{ page.cover_img_dithered_kb }}"{% endif %}
                  {% if page.cover_img_original_kb %}data-original-size="{{ page.cover_img_original_kb }}"{% endif %}
                  {% if page.cover_img_reduction %}data-size-reduction="{{ page.cover_img_reduction }}"{% endif %}
-                 class="dithered-image active" alt="{{ page.title }}" loading="lazy">
+                 class="dithered-image active" alt="{{ page.title }}" loading="eager">
           </div>
           <figcaption>
             <span class="caption-text">Cover{% if page.cover_img_dithered_kb and page.cover_img_reduction %} · {{ page.cover_img_dithered_kb }} (−{{ page.cover_img_reduction }}%){% endif %}</span>
