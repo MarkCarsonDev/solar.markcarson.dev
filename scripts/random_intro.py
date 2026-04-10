@@ -7,10 +7,9 @@ import random
 
 # List of possible intro lines
 intro_options = [
-    "a fan of slow computers, sometimes.",
+    "a fan of slow computers... sometimes...",
     "enjoyer of plants and the tiny.",
-    "solarpunk-ish kinda guy.",
-    "amateur (and mid) photographer."
+    "imbibed with a polyannish, solarpunk whimsy.",
 ]
 
 # Pick a random one and set it as a Sonne variable
