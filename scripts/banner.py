@@ -23,7 +23,7 @@ banner_html = f'''<div id="banner">
         <span id="battery-status">{'☀' if BATTERY_CHARGING else '⬡'} {battery_status}</span>
     </div>
     <div id="message">
-        <p>This site will soon be solar-powered. <a href="{read_why_link}">Read why.</a></p>
+        <p>This site is solar-powered and may go down occasionally. <a href="{read_why_link}">Read why.</a></p>
     </div>
     <div id="items">
         <div class="theme-switch-wrapper">
