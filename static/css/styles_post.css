@@ -101,15 +101,6 @@
     opacity: 0.5;
 }
 
-/* Home keypress link — must be flex to lay out label + keycap side by side
-   (the <li> flex layout no longer applies since <a> is the keypress element) */
-#sidebar.blog-post-sidebar #kpH {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
 /* Scrollbar styling */
 #sidebar li.sidebar-posts-wrapper::-webkit-scrollbar {
     width: 4px;
