@@ -24,7 +24,7 @@ This was inspired first by reading an essay about the ***Solar Powered Website**
 (to be continued later. go check out LTM in the meantime.)
 
 ---
-*[LTM]: Low Tech Magazine (https://solar.lowtechmagazine.com)
+*[LTM]: Low Tech Magazine
 
 ---
 
