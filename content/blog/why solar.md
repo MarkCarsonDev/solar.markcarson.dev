@@ -17,14 +17,14 @@ It's no surprise you're asking,
 
 In part, because I can, and its a lot of fun to see what corners can be cut. 
 
-10% of energy use globally is used for web traffic, and while I'm sure that breaks down into mostly automated activity and video streaming, its a good enough metric to justify building something tiny. *really* tiny. as small as you can make tiny. well, maybe a little bigger and more functional than [https://motherfuckingwebsite.com/](this) one.
+10% of energy use globally is used for web traffic, and while I'm sure that breaks down into mostly automated activity and video streaming, its a good enough metric to justify building something tiny. *really* tiny. as small as you can make tiny. well, maybe a little bigger and more functional than [this](https://motherfuckingwebsite.com/) one.
 
-This was inspired first by reading an essay about the ***Solar Powered Website*** from [https://solar.lowtechmagazine.com](*Low Tech Magazine*) in a book I found at Powell's in Portland, *Almanac for the Anthropocene*. LTM was really the main inspiration for all of this and I'd been wanting to put it together for years before I finally did.
+This was inspired first by reading an essay about the ***Solar Powered Website*** from [*Low Tech Magazine*](https://solar.lowtechmagazine.com) in a book I found at Powell's in Portland, *Almanac for the Anthropocene*. LTM was really the main inspiration for all of this and I'd been wanting to put it together for years before I finally did.
 
 (to be continued later. go check out LTM in the meantime.)
 
 ---
-*[LTM]: [https://solar.lowtechmagazine.com](*Low Tech Magazine*)
+*[LTM]: Low Tech Magazine (https://solar.lowtechmagazine.com)
 
 ---
 
