@@ -10,9 +10,7 @@ cover_img: img/lake_washington.jpg
 cover_crop: "16:9"
 ---
 
-[TOC]
-
-This site runs on a few panels laying haphazardly on my apartment balcony. When the lead acid battery I have hooked up runs low, or the sky is too cloudy, the site goes offline -- staying offline -- until the sun comes back up. I've disabled Cloudflare's CDN cache to make sure this happens. Choosing to run a personal site like this when today's standard of internet access enables [an entirely functional 3D game engine as a portfolio](https://bruno-simon.com/)[^bruno-simon] (as long as you're okay with 10-20 MB to initalize and 15 seconds of load time on coffee shop WiFi). 
+This site runs on a few panels laying haphazardly on my apartment balcony. When the lead acid battery I have hooked up runs low, or the sky is too cloudy, the site goes offline -- staying offline -- until the sun comes back up. I've disabled Cloudflare's CDN cache to make sure this happens. Choosing to run a personal site like this when today's standard of internet access enables [an entirely functional 3D game engine as a portfolio](https://bruno-simon.com/) (as long as you're okay with 10-20 MB to initalize and 15 seconds of load time on coffee shop WiFi).[^bruno-simon]
 
 It's no surprise you're asking,
 ## why have I done this? {#why}
@@ -26,7 +24,7 @@ This was inspired first by reading an essay about the ***Solar Powered Website**
 (to be continued later. go check out LTM in the meantime.)
 
 ---
-*[LTM]]: [https://solar.lowtechmagazine.com](*Low Tech Magazine*)
+*[LTM]: [https://solar.lowtechmagazine.com](*Low Tech Magazine*)
 
 ---
 
