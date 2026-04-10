@@ -85,13 +85,13 @@
 }
 
 .sidebar-post-item a:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-left-color: rgba(255, 255, 255, 0.3);
+    background: color-mix(in srgb, var(--text-color) 5%, transparent);
+    border-left-color: color-mix(in srgb, var(--text-color) 30%, transparent);
 }
 
 .sidebar-post-item.current-post a {
-    background: rgba(255, 255, 255, 0.08);
-    border-left-color: rgba(255, 255, 255, 0.6);
+    background: color-mix(in srgb, var(--text-color) 8%, transparent);
+    border-left-color: color-mix(in srgb, var(--text-color) 60%, transparent);
     font-weight: 600;
 }
 
