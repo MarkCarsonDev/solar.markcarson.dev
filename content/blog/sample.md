@@ -2,12 +2,12 @@
 title: Sample post
 date_posted: 2025-2-4
 date_edited: 2025-2-4
-description: Just to fkex
+description: Just to test
 author: Mark
-page_url:sample-blog
+page_url: sample-blog
 cover_img: none
-tags:
+tags: []
 ---
 # New blog post!
 
-viniiiiiicoooooo
+viniiiiiicoooooous dugues

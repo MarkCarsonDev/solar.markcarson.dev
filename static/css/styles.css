@@ -8,9 +8,10 @@
     --sidebar-width: 15rem;
     --banner-height: 3rem;
     --footer-height: 3rem;
-    --icon-color: #fff; /* Default color for dark mode */
+    --icon-color: #fff;
     --icon-bg: transparent;
-
+    --font-mono: monospace;
+    --font-serif: Georgia, 'Times New Roman', serif;
 }
 
 [data-theme="light"] {
@@ -24,7 +25,6 @@
 }
 
 body {
-    /* font-family: 'Roboto', sans-serif; */
     background-color: var(--bg);
     color: var(--text-color);
     margin: 0;
@@ -72,7 +72,9 @@ body {
     #items {
         position: absolute;
         right: 0;
-        text-align: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         justify-content: center;
     }
 }
@@ -81,7 +83,7 @@ body {
     display: grid;
     grid-template-areas:
     'header header header header header header'
-    'menu main main main right right'
+    'menu main main main main main'
     'menu footer footer footer footer footer';
 
     grid-template-columns: var(--sidebar-width) 1fr 1fr 1fr 1fr 1fr;
@@ -113,7 +115,6 @@ body {
         list-style: none;
         padding: 2em 1.5em;
         border-top: var(--hairline);
-        /* border-radius: 0.4em; */
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -125,41 +126,32 @@ body {
         &:hover {
             text-decoration: underline;
         }
-
     }
 }
 
 #content {
     grid-area: main;
     flex-direction: column;
-    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     height: 100%;
     margin-top: 1.5rem;
-    margin-left: 2.5rem;
-
-    &> div {
-        margin-bottom: 15rem;
-    }
-
-    #home {
-        span#nameplate {
-            font-size: 5rem;
-        }
-        margin-bottom: 55vh;
-    }
+    padding-left: 2.5rem;
+    padding-right: 2rem;
 }
 
 #footer {
     grid-area: footer;
-    
-    p {
-        padding: 0;
-        margin: 0.25rem 0rem;
-        text-align: center;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    border-top: var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    opacity: 0.4;
+    letter-spacing: 0.03em;
 }
-
-
 
 a, .keypress {
     color: var(--text-color);
@@ -173,7 +165,6 @@ a, .keypress {
 
 .keypress > :first-child {
     text-decoration: underline;
-
 }
 
 .keycap {
@@ -189,16 +180,13 @@ a, .keypress {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: box-shadow 0.1s, transform 0.1s, background-color 0.1s;
     text-decoration: none !important;
 
-
     &.depressed {
-        box-shadow: 0 0px 0px var(--bg-hover);
+        box-shadow: none;
         transform: translateY(5px);
         background-color: var(--bg-hard);
     }
-
 
     &:hover {
         text-decoration: underline;
@@ -210,19 +198,19 @@ a, .keypress {
     flex-direction: row;
     align-items: center;
     border-radius: 0.4em;
+    margin: 0.4em;
 
     .theme-icon {
-        display: flex; /* Enable flexbox for centering */
-        align-items: center; /* Vertically center */
-        justify-content: center; /* Horizontally center */
-        width: 2rem; /* Ensure the container is a square */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
         height: 2rem;
 
         svg {
             width: 1.5rem;
             height: 1.5rem;
             fill: var(--icon-color);
-            transition: fill 0.5s ease;
         }
     }
 
@@ -230,64 +218,114 @@ a, .keypress {
         opacity: 0;
         width: 0;
         border: none;
-        transition: width 0.5s ease, opacity 0.5s ease, border-color 0.5s ease;
     }
 
     &:hover .keycap {
         opacity: 1;
         width: 1.5em;
-        transition: width 0.5s ease, opacity 0.5s ease 0.5s, border-color 0s ease 0.5s; /* Delay opacity */
         border: 1px solid var(--text-color);
     }
 
     &:not(:hover) .keycap {
         opacity: 0;
         width: 0;
-        transition: opacity 0.5s ease, width 0.5s ease 0.5s, border-color 0s ease;
-        border: none; /* Border disappears immediately */
+        border: none;
     }
-	transition: background-color 0.5s ease;
 }
 
 .theme-switch::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: var(--bg-hover);
-	transform: translateX(0%);
-	transition: transform 0.5s linear;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-hover);
+    transform: translateX(0%);
     visibility: hidden;
 }
 
 .theme-switch.debounce-active::before {
-	transform: translateX(100%);
+    transform: translateX(100%);
     visibility: visible;
 }
 
-#projects ul {
+.rss-link {
     display: flex;
-    flex-direction: row;
-    list-style: none;
-    overflow-x: scroll;
-}
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.4em;
+    margin: 0.4em;
+    text-decoration: none;
 
-li:has(.project-tile) {
-    border-radius: 0.5em;
-    border: 0.1px solid var(--text-color);
-    display: flex;
-    width: 35vh;
-    height: 35vh;
-    margin: 0.5rem;
+    svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: #f26522;
+    }
 
-    .project-tile {
-        overflow: hidden;
-        width: 100%;
-        height: 100;
-        padding: 0.25em;
+    &:hover svg {
+        fill: #d4511a;
     }
 }
 
+/* ---- Battery status in banner stamp ---- */
+#battery-status {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    opacity: 0.5;
+    margin-top: 0.1rem;
+    letter-spacing: 0.02em;
+}
 
+/* ---- Mobile ---- */
+@media (max-width: 640px) {
+    :root {
+        --sidebar-width: 4rem;
+    }
+
+    #sidebar li {
+        padding: 0.9em 0;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #sidebar li span:not(.keycap) {
+        writing-mode: vertical-lr;
+        font-size: 0.5rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        opacity: 0.7;
+    }
+
+    #sidebar li.listsep {
+        padding: 0.5em 0;
+    }
+
+    .keycap {
+        display: none !important;
+    }
+
+    #content {
+        padding-left: 1rem;
+        padding-right: 0.75rem;
+    }
+
+    #banner #stamp {
+        width: var(--sidebar-width);
+        font-size: 0.6rem;
+        padding: 0 0.4rem;
+        box-sizing: border-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    #banner #message {
+        display: none;
+    }
+}

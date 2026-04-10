@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Tags — Blog — {{ site.author }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/css/styles_blog.css">
+{% endblock %}
+
+{% block content %}
+{% from "macros.html" import breadcrumb %}
+<div class="blog-list">
+    {{ breadcrumb([
+        {'label': 'Blog', 'url': '/blog/'},
+        {'label': 'Tags', 'url': '/blog/tags/'}
+    ]) }}
+
+    <header class="blog-list-header">
+        <h1>Tags</h1>
+    </header>
+
+    {% if page.tags %}
+    <ul class="tags-list">
+        {% for tag_name in page.tags.keys()|sort %}
+        {% set tag_data = page.tags[tag_name] %}
+        <li class="tags-list-item">
+            <a href="/blog/tags/{{ tag_data.slug }}/" class="tags-list-link">
+                <span class="tags-list-name">{{ tag_name }}</span>
+                <span class="tags-list-count">{{ tag_data.posts|length }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tags found.</p>
+    {% endif %}
+
+    <nav class="archive-nav">
+        <a href="/blog/">← Back to blog</a>
+    </nav>
+</div>
+{% endblock %}

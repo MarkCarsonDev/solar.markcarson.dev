@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
-	// On load, read the saved theme from cookie (default to "light" if none exists)
+	// Theme was already applied in <head> before first paint.
+	// Just sync the icon and set up interactions.
 	const savedTheme = getCookie("theme") || "light";
-	document.documentElement.setAttribute("data-theme", savedTheme);
 	updateThemeIcon(savedTheme);
-
 	initializeLightDarkSwitch();
 	initializeKeypressNavigator();
+
+	// Re-enable transitions now that the initial state is fully settled.
+	requestAnimationFrame(function () {
+		var s = document.getElementById("__no-trans");
+		if (s) s.parentNode.removeChild(s);
+	});
 });
 
 function initializeLightDarkSwitch() {
@@ -125,44 +130,46 @@ function initializeKeypressNavigator() {
 	const keypressElements = document.querySelectorAll(".keypress");
 
 	keypressElements.forEach(function (item) {
-		const id = item.id.toLowerCase();
+		const id = item.id;
 
 		// Check if the ID starts with 'kp'
 		if (id && id.startsWith("kp")) {
 			// Remove 'kp' prefix and set the rest as the element's content
-			let keyChar = id.slice(2);
+			let keyChar = id.slice(2).toLowerCase();
 
-			// Create an element with class "keypress_icon"
-			const div = document.createElement("div");
-			const span = document.createElement("span");
-			span.className = "keycap";
+			// Only inject the keycap span if one isn't already in the HTML (server-rendered)
+			if (!item.querySelector(".keycap")) {
+				const span = document.createElement("span");
+				span.className = "keycap";
 
-			// Special case for arrow keys: if the keyChar matches "arrowleft" or "arrowright", set the symbol
-			if (keyChar === "arrowleft") {
-				span.textContent = "←";
-			} else if (keyChar === "arrowright") {
-				span.textContent = "→";
-			} else if (keyChar === "arrowup") {
-				span.textContent = "↑";
-			} else if (keyChar === "arrowdown") {
-				span.textContent = "↓";
-			} else {
-				// Default behavior for other keys: display the key character as uppercase
-				span.textContent = keyChar.toUpperCase();
+				if (keyChar === "arrowleft") {
+					span.textContent = "←";
+				} else if (keyChar === "arrowright") {
+					span.textContent = "→";
+				} else if (keyChar === "arrowup") {
+					span.textContent = "↑";
+				} else if (keyChar === "arrowdown") {
+					span.textContent = "↓";
+				} else {
+					span.textContent = keyChar.toUpperCase();
+				}
+
+				if (item.classList.contains("keypress-reverse")) {
+					item.insertBefore(span, item.firstChild);
+				} else {
+					item.appendChild(span);
+				}
 			}
-
-			item.appendChild(span);
-
-			// Optionally, append the div to the body or another container if needed
-			document.body.appendChild(div);
 
 			// Listen for keydown events
 			document.addEventListener("keydown", function (event) {
-				// Convert the event key to lowercase for comparison.
-				// For arrow keys, event.key will be "ArrowLeft", "ArrowRight", etc.
-				if (event.key.toLowerCase() === keyChar) {
+				if (event.key.toLowerCase() === keyChar.toLowerCase()) {
 					const keycap = item.querySelector(".keycap");
-					keycap.classList.add("depressed");
+					if (keycap && keycap.offsetParent !== null) {
+						keycap.classList.add("depressed");
+					} else {
+						item.classList.add("depressed");
+					}
 					item.click();
 				}
 			});
@@ -171,7 +178,11 @@ function initializeKeypressNavigator() {
 			document.addEventListener("keyup", function (event) {
 				if (event.key.toLowerCase() === keyChar) {
 					const keycap = item.querySelector(".keycap");
-					keycap.classList.remove("depressed");
+					if (keycap && keycap.offsetParent !== null) {
+						keycap.classList.remove("depressed");
+					} else {
+						item.classList.remove("depressed");
+					}
 				}
 			});
 		}

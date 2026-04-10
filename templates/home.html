@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block extra_css %}<link rel="stylesheet" href="/css/styles_home.css">{% endblock %}
+{% block content %}
+<div id="home-content">
+
+  {# ── Left column: personal content ── #}
+  <div class="home-left">
+
+    <section id="home-intro" class="home-section">
+      <h1 class="home-name">{{ site.author|default('Mark Carson') }}</h1>
+      <p class="home-tagline">{{ site.tagline|default('Software Engineering, Data Science, Environmentalism') }}</p>
+      <p class="home-lede">{{ random_intro|default('a fan of slow computers, sometimes.') }} <br>Strongly motivated to help people, animals, and the planet.</p>
+    </section>
+
+    <section id="about" class="home-section">
+      <h2 class="section-label">About</h2>
+      <p class="about-body">{{ about_message|default("Still building this — thanks for your patience.") }}</p>
+      <p class="about-body">Built from scratch using <a href="https://github.com/MarkCarsonDev/Sonne">Sonne</a>, a static site generator I wrote myself. Designed to be intentionally lightweight and, soon, solar-powered.</p>
+    </section>
+
+  </div>
+
+  {# ── Right column: posts ── #}
+  <div class="home-right">
+
+    <section id="recent" class="home-section">
+      <h2 class="section-label">Recent Writing</h2>
+
+      {# 3 newest posts (any type) #}
+      {% set newest = namespace(posts=[]) %}
+      {% for post in all_blog_posts|sort(attribute='date_str', reverse=true) %}
+        {% if newest.posts|length < 3 %}
+          {% set newest.posts = newest.posts + [post] %}
+        {% endif %}
+      {% endfor %}
+      {% set shown = namespace(slugs=newest.posts|map(attribute='slug')|list) %}
+
+      {% if newest.posts %}
+      <h3 class="projects-group-label">Newest</h3>
+      <ul class="project-grid">
+        {% for post in newest.posts %}
+        <li class="project-card">
+          <a href="{{ post.full_url }}">
+            {% if post.cover_img_dithered %}
+            <div class="project-card-cover">
+              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="project-card-body">
+              <h3 class="project-card-title">{{ post.title }}</h3>
+              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
+              <span class="project-card-date">{{ post.date_str }}</span>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <a href="/blog/" class="post-list-more">All posts &rarr;</a>
+      {% endif %}
+
+      {# 3 featured non-project posts, deduped #}
+      {% set featured = namespace(posts=[]) %}
+      {% for post in all_blog_posts|sort(attribute='date_str', reverse=true) %}
+        {% if 'featured' in (post.tags or []) and 'project' not in (post.tags or []) and post.slug not in shown.slugs and featured.posts|length < 3 %}
+          {% set featured.posts = featured.posts + [post] %}
+        {% endif %}
+      {% endfor %}
+
+      {% if featured.posts %}
+      <h3 class="projects-group-label">Featured</h3>
+      <ul class="project-grid">
+        {% for post in featured.posts %}
+        <li class="project-card">
+          <a href="{{ post.full_url }}">
+            {% if post.cover_img_dithered %}
+            <div class="project-card-cover">
+              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="project-card-body">
+              <h3 class="project-card-title">{{ post.title }}</h3>
+              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
+              <span class="project-card-date">{{ post.date_str }}</span>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+    </section>
+
+    <section id="projects" class="home-section">
+      <h2 class="section-label">Projects</h2>
+
+      {# 3 featured project posts, deduped #}
+      {% set projects = namespace(posts=[]) %}
+      {% for post in all_blog_posts|sort(attribute='date_str', reverse=true) %}
+        {% if 'featured' in (post.tags or []) and 'project' in (post.tags or []) and post.slug not in shown.slugs and projects.posts|length < 3 %}
+          {% set projects.posts = projects.posts + [post] %}
+        {% endif %}
+      {% endfor %}
+
+      {% if projects.posts %}
+      <ul class="project-grid">
+        {% for post in projects.posts %}
+        <li class="project-card">
+          <a href="{{ post.full_url }}">
+            {% if post.cover_img_dithered %}
+            <div class="project-card-cover">
+              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
+            </div>
+            {% endif %}
+            <div class="project-card-body">
+              <h3 class="project-card-title">{{ post.title }}</h3>
+              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
+              <span class="project-card-date">{{ post.date_str }}</span>
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="projects-empty">No featured projects yet &mdash; check back soon.</p>
+      {% endif %}
+
+    </section>
+
+  </div>
+
+</div>
+{% endblock %}
