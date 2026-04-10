@@ -50,6 +50,7 @@ images:
   parallel: true             # process multiple images concurrently
   parallel_workers: 4        # max parallel workers (null = auto based on CPU count)
   lazy_loading: true
+  only_used: true
 
 variables:
   file: "sonne_variables.json"
