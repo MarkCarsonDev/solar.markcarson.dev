@@ -6,6 +6,8 @@ description: Really, a website that isn't always online? What's even the point?
 author: Mark
 page_url: why-solar
 tags: why-solar featured
+cover_img: lake_washington.jpg
+cover_crop: "16:9"
 ---
 # Why Solar?
 
