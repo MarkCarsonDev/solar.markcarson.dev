@@ -111,20 +111,23 @@ body {
     }
 
     li {
-        font-size: 1em;
+        font-family: var(--font-mono);
+        font-size: 0.82rem;
         list-style: none;
-        padding: 2em 1.5em;
+        padding: 1.5em 1.5em;
         border-top: var(--hairline);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        opacity: 0.55;
+        transition: opacity 0.1s;
 
         &.listsep {
-            padding: 3em 1.5em;
+            padding: 2em 1.5em;
         }
 
         &:hover {
-            text-decoration: underline;
+            opacity: 1;
         }
     }
 }
@@ -288,7 +291,7 @@ a, .keypress {
     }
 
     #sidebar li {
-        padding: 0.9em 0;
+        padding: 1.4em 0;
         justify-content: center;
         flex-direction: column;
         align-items: center;
@@ -296,10 +299,9 @@ a, .keypress {
 
     #sidebar li span:not(.keycap) {
         writing-mode: vertical-lr;
-        font-size: 0.5rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        opacity: 0.7;
+        font-size: 0.82rem;
+        letter-spacing: 0.01em;
+        opacity: 0.75;
     }
 
     #sidebar li.listsep {
