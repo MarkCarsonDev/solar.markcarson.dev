@@ -1,0 +1,27 @@
+<li class="book-card">
+  {% if book.link %}<a href="{{ book.link }}" target="_blank" rel="noopener noreferrer" class="book-card-inner">
+  {% else %}<div class="book-card-inner">{% endif %}
+    <div class="book-card-cover">
+      {% if book.has_cover %}<img src="/images/books/{{ book.id }}.png" alt="{{ book.title }}" loading="lazy">
+      {% else %}<div class="book-card-cover-placeholder"></div>{% endif %}
+    </div>
+    <div class="book-card-body">
+      <h4 class="book-card-title">{{ book.title }}</h4>
+      <p class="book-card-author">{{ book.authors }}</p>
+      {% if book.finished_at %}
+      <div class="book-card-footer">
+        {% if book.rating %}
+        {% set _f = book.rating | int %}
+        <span class="book-card-stars">{% for i in range(_f) %}★{% endfor %}{% if book.rating - _f >= 0.5 %}<span class="star-half">★</span>{% endif %}</span>
+        {% endif %}
+        <span class="book-card-meta">{{ book.finished_at[:10] }}</span>
+      </div>
+      {% elif book.percent_complete is not none %}
+      <div class="book-card-footer">
+        <div class="book-progress"><div class="book-progress-bar" style="width: {{ book.percent_complete | int }}%"></div></div>
+        <span class="book-card-meta">{{ book.percent_complete | int }}%</span>
+      </div>
+      {% endif %}
+    </div>
+  {% if book.link %}</a>{% else %}</div>{% endif %}
+</li>

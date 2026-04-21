@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block extra_css %}<link rel="stylesheet" href="/css/styles_home.css">{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="/css/styles_home.css"><link rel="stylesheet" href="/css/styles_reading.css">{% endblock %}
 {% block content %}
 <div id="home-content">
 
@@ -7,7 +7,7 @@
   <div class="home-left">
 
     <section id="home-intro" class="home-section">
-      <h1 class="home-name">{{ site.author|default('Mark Carson') }}</h1>
+      <h1 class="home-name">{% set _n = (site.author|default('Mark Carson')).split(' ') %}{{ _n[0] }}<br>{{ _n[1:] | join(' ') }}</h1>
       <p class="home-tagline">{{ site.tagline|default('Software Engineering, Data Science, Environmentalism') }}</p>
       <p class="home-lede">{{ random_intro|default('a fan of slow computers, sometimes.') }} <br>Strongly motivated to help people, animals, and the planet.</p>
     </section>
@@ -15,7 +15,7 @@
     <section id="about" class="home-section">
       <h2 class="section-label">About</h2>
       <p class="about-body">{{ about_message|default("Still building this — thanks for your patience.") }}</p>
-      <p class="about-body">Built from scratch using <a href="https://github.com/MarkCarsonDev/Sonne">Sonne</a>, a static site generator I wrote myself. Designed to be intentionally lightweight and, soon, solar-powered.</p>
+      <p class="about-body">Built from scratch using <a href="https://github.com/MarkCarsonDev/Sonne">Sonne</a>, a static site generator I wrote myself. Designed to be intentionally lightweight and solar-powered.</p>
     </section>
 
   </div>
@@ -122,6 +122,71 @@
       </ul>
       {% else %}
       <p class="projects-empty">No featured projects yet &mdash; check back soon.</p>
+      {% endif %}
+
+    </section>
+
+    <section id="reading" class="home-section">
+      <h2 class="section-label">Recent Reading</h2>
+
+      {# ── In Progress ── #}
+      {% if reading_inprogress_top %}
+      <h3 class="projects-group-label">In Progress</h3>
+      <ul class="book-grid">
+        {% for book in reading_inprogress_top %}
+        {% include "partials/book_card.html" %}
+        {% endfor %}
+      </ul>
+      {% if reading_inprogress_rest %}
+      <details class="book-more">
+        <summary>{{ reading_inprogress_rest|length }} more in progress</summary>
+        <ul class="book-grid">
+          {% for book in reading_inprogress_rest %}
+          {% include "partials/book_card.html" %}
+          {% endfor %}
+        </ul>
+      </details>
+      {% endif %}
+      {% endif %}
+
+      {# ── Recently Finished ── #}
+      {% if reading_finished_top %}
+      <h3 class="projects-group-label">Recently Finished</h3>
+      <ul class="book-grid">
+        {% for book in reading_finished_top %}
+        {% include "partials/book_card.html" %}
+        {% endfor %}
+      </ul>
+      {% if reading_finished_rest %}
+      <details class="book-more">
+        <summary>{{ reading_finished_rest|length }} more finished</summary>
+        <ul class="book-grid">
+          {% for book in reading_finished_rest %}
+          {% include "partials/book_card.html" %}
+          {% endfor %}
+        </ul>
+      </details>
+      {% endif %}
+      {% endif %}
+
+      {# ── Up Next ── #}
+      {% if reading_up_next_top %}
+      <h3 class="projects-group-label">Up Next</h3>
+      <ul class="book-grid">
+        {% for book in reading_up_next_top %}
+        {% include "partials/book_card.html" %}
+        {% endfor %}
+      </ul>
+      {% if reading_up_next_rest %}
+      <details class="book-more">
+        <summary>{{ reading_up_next_rest|length }} more queued</summary>
+        <ul class="book-grid">
+          {% for book in reading_up_next_rest %}
+          {% include "partials/book_card.html" %}
+          {% endfor %}
+        </ul>
+      </details>
+      {% endif %}
       {% endif %}
 
     </section>
