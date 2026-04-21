@@ -282,6 +282,33 @@ a, .keypress {
     opacity: 0.5;
     margin-top: 0.1rem;
     letter-spacing: 0.02em;
+    cursor: default;
+    position: relative;
+}
+
+#battery-status[data-tip]::after {
+    content: attr(data-tip);
+    display: none;
+    position: absolute;
+    top: 1.3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg);
+    border: var(--hairline);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2em;
+    white-space: nowrap;
+    font-size: 0.65rem;
+    opacity: 1;
+    z-index: 10;
+}
+
+#battery-status[data-tip]:hover {
+    opacity: 0.85;
+}
+
+#battery-status[data-tip]:hover::after {
+    display: block;
 }
 
 /* ---- Mobile ---- */
