@@ -11,7 +11,7 @@ BATTERY_CHARGING = True   # True = solar charging, False = running on stored bat
 sonne_var("battery_level",    BATTERY_LEVEL)
 sonne_var("battery_charging", BATTERY_CHARGING)
 
-battery_status = 'charging' if BATTERY_CHARGING else f'{BATTERY_LEVEL}%'
+battery_status = 'solarized' if BATTERY_CHARGING else f'{BATTERY_LEVEL}%'
 
 # Dynamic link to the "why solar" post
 why_solar_post = get_post(slug='why-solar')
@@ -20,7 +20,7 @@ read_why_link  = why_solar_post.get('full_url', '/blog/') if why_solar_post else
 banner_html = f'''<div id="banner">
     <div id="stamp">
         <a href="/">markcarson.dev</a>
-        <span id="battery-status">{'☀' if BATTERY_CHARGING else '⬡'} {battery_status}</span>
+        <span id="battery-status" data-tip="charging status and battery level coming soon">{'☀' if BATTERY_CHARGING else '⬡'} {battery_status}</span>
     </div>
     <div id="message">
         <p>This site is solar-powered and may go down occasionally. <a href="{read_why_link}">Read why.</a></p>
