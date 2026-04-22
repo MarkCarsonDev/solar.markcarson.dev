@@ -291,8 +291,7 @@ a, .keypress {
     display: none;
     position: absolute;
     top: 1.3rem;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     background: var(--bg);
     border: var(--hairline);
     padding: 0.2rem 0.5rem;
