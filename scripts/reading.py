@@ -109,7 +109,7 @@ finished = _process(
 inprogress = _process(
     sorted(
         _data.get("currently_reading", []),
-        key=lambda b: b.get("percent_complete") or 0,
+        key=lambda b: b.get("last_read_at") or "",
         reverse=True,
     )
 )
