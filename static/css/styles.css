@@ -32,13 +32,6 @@ body {
     overflow-x: hidden;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
 #banner {
     grid-area: header;
     height: var(--banner-height);
@@ -89,7 +82,8 @@ body {
     'menu footer footer footer footer footer';
 
     grid-template-columns: var(--sidebar-width) 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: var(--banner-height) 1fr var(--footer-height);
+    grid-template-rows: var(--banner-height) 1fr auto;
+    min-height: 100vh; /* keeps the footer at the bottom of short pages */
 }
 
 #sidebar {
@@ -128,6 +122,19 @@ body {
             padding: 2em 1.5em;
         }
 
+        /* The link fills the row so the whole row is clickable */
+        &.nav-item {
+            padding: 0;
+        }
+
+        &.nav-item > a {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5em;
+        }
+
         &:hover {
             opacity: 1;
         }
@@ -147,7 +154,9 @@ body {
 
 #footer {
     grid-area: footer;
+    min-height: var(--footer-height);
     display: flex;
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
@@ -325,6 +334,12 @@ a, .keypress {
         align-items: center;
     }
 
+    #sidebar li.nav-item > a {
+        padding: 1.4em 0;
+        justify-content: center;
+        flex-direction: column;
+    }
+
     #sidebar li span:not(.keycap) {
         writing-mode: vertical-lr;
         font-size: 0.82rem;
@@ -346,13 +361,18 @@ a, .keypress {
     }
 
     #banner #stamp {
-        width: var(--sidebar-width);
-        font-size: 0.6rem;
-        padding: 0 0.4rem;
-        box-sizing: border-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        width: auto;
+        padding: 0 0.75rem;
+        text-align: left;
         white-space: nowrap;
+    }
+
+    #footer {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.25rem;
+        padding: 0.75rem 1rem;
     }
 
     #banner #message {

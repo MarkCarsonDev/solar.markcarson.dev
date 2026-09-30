@@ -1,0 +1,3 @@
+# Names Sonne injects into every scripts/*.py at build time.
+builtins = ["sonne_var", "get_post", "sonne_filter", "sonne_global"]
+line-length = 110

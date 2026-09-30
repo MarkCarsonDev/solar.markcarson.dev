@@ -6,7 +6,7 @@ This directory contains Python scripts that run at build time to generate dynami
 
 1. **Scripts are executed during build** - Every `.py` file in this directory runs when you build your site
 2. **Set variables with `sonne_var()`** - Use `sonne_var('name', value)` to make data available to templates
-3. **Variables available everywhere** - Use `{{ variable_name }}` in Jinja templates or `{+}{variable_name}` in content
+3. **Variables available everywhere** - Use `{{ variable_name }}` in Jinja templates
 
 ## Example
 
@@ -27,11 +27,11 @@ Then use in templates:
 <footer>Built on {{ build_date }} © {{ build_year }}</footer>
 ```
 
-Or in content files:
-```markdown
-Last updated: {+}{build_date}
-```
-
 ## Included Scripts
 
-- **random_intro.py** - Randomly selects a fun intro line for the homepage
+Scripts supply data only; the HTML that shows it lives in `templates/`.
+
+- **solar_status.py** - battery level / charging flag shown in the banner (`partials/banner.html`)
+- **build_info.py** - build timestamp shown in the footer (`partials/footer.html`)
+- **random_intro.py** - randomly selects a fun intro line for the homepage
+- **reading.py** - reading shelves and dithered book covers from books.markcarson.dev (`home.html`)
