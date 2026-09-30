@@ -9,19 +9,19 @@
 {% block content_class %}class="with-sidebar"{% endblock %}
 
 {% block sidebar %}
-<nav id="sidebar" class="blog-post-sidebar">
+<nav id="sidebar" class="blog-post-sidebar" aria-label="Posts">
     <ul>
         {# Prev/Next arrows #}
         <li class="sidebar-arrows">
             {% if page.prev_post %}
-            <a href="{{ page.prev_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWLEFT" rel="prev" title="{{ page.prev_post.title }}">‹</a>
+            <a href="{{ page.prev_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWLEFT" rel="prev" title="{{ page.prev_post.title }}" aria-label="Newer post: {{ page.prev_post.title }}">‹</a>
             {% else %}
-            <span class="sidebar-arrow-btn disabled">‹</span>
+            <span class="sidebar-arrow-btn disabled" aria-hidden="true">‹</span>
             {% endif %}
             {% if page.next_post %}
-            <a href="{{ page.next_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWRIGHT" rel="next" title="{{ page.next_post.title }}">›</a>
+            <a href="{{ page.next_post.url }}" class="sidebar-arrow-btn keypress" id="kpARROWRIGHT" rel="next" title="{{ page.next_post.title }}" aria-label="Older post: {{ page.next_post.title }}">›</a>
             {% else %}
-            <span class="sidebar-arrow-btn disabled">›</span>
+            <span class="sidebar-arrow-btn disabled" aria-hidden="true">›</span>
             {% endif %}
         </li>
 
@@ -43,7 +43,7 @@
         {% endif %}
 
         <li class="listsep"></li>
-        <li class="nav-item"><a href="/" id="kpH" class="keypress"><span>Home</span><span class="keycap">H</span></a></li>
+        <li class="nav-item"><a href="/" id="kpH" class="keypress"><span>Home</span><span class="keycap" aria-hidden="true">H</span></a></li>
     </ul>
 </nav>
 {% endblock %}
@@ -76,11 +76,11 @@
                  {% if page.cover_img_dithered_kb %}data-dithered-size="{{ page.cover_img_dithered_kb }}"{% endif %}
                  {% if page.cover_img_original_kb %}data-original-size="{{ page.cover_img_original_kb }}"{% endif %}
                  {% if page.cover_img_reduction %}data-size-reduction="{{ page.cover_img_reduction }}"{% endif %}
-                 class="dithered-image active" alt="{{ page.title }}" loading="eager">
+                 class="dithered-image active" alt="{{ page.metadata.cover_alt | default('') }}" loading="eager">
           </div>
           <figcaption>
             <span class="caption-text">Cover{% if page.cover_img_dithered_kb and page.cover_img_reduction %} · {{ page.cover_img_dithered_kb }} (−{{ page.cover_img_reduction }}%){% endif %}</span>
-            <button class="request-original-btn"{% if page.cover_img_original_kb %} data-original-size="{{ page.cover_img_original_kb }}"{% endif %}><span class="btn-text">view original</span></button>
+            <button type="button" class="request-original-btn"{% if page.cover_img_original_kb %} data-original-size="{{ page.cover_img_original_kb }}"{% endif %}><span class="btn-text">view original</span></button>
           </figcaption>
         </figure>
         {% endif %}
@@ -116,11 +116,11 @@
             <div class="related-posts-grid">
                 {% for rp in page.related_posts %}
                 <div class="related-post-card">
-                    <a href="{{ rp.full_url }}" class="related-post-cover-link">
+                    <a href="{{ rp.full_url }}" class="related-post-cover-link" tabindex="-1" aria-hidden="true">
                         <div class="related-post-cover">
                             {% if rp.cover_img_dithered %}
                             <img src="{{ rp.full_url.rstrip('/') }}/{{ rp.cover_img_dithered }}"
-                                 alt="{{ rp.title }}" loading="lazy">
+                                 alt="" loading="lazy">
                             {% endif %}
                         </div>
                     </a>

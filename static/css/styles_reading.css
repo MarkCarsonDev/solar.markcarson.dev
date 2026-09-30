@@ -79,7 +79,7 @@
 .book-card-author {
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    opacity: 0.4;
+    color: var(--text-muted);
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -110,7 +110,7 @@
 .book-card-meta {
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    opacity: 0.4;
+    color: var(--text-muted);
     display: block;
 }
 
@@ -141,7 +141,7 @@ details.book-more > summary {
     font-size: 0.65rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    opacity: 0.4;
+    color: var(--text-muted);
     cursor: pointer;
     list-style: none;
     padding: 0.25rem 0;
@@ -162,7 +162,7 @@ details.book-more[open] > summary::before {
 }
 
 details.book-more > summary:hover {
-    opacity: 1;
+    color: var(--text-color);
 }
 
 details.book-more > .book-grid {
