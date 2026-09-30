@@ -32,6 +32,6 @@ Then use in templates:
 Scripts supply data only; the HTML that shows it lives in `templates/`.
 
 - **solar_status.py** - battery level / charging flag shown in the banner (`partials/banner.html`)
-- **build_info.py** - build timestamp shown in the footer (`partials/footer.html`)
+- **build_info.py** - `compiled_at` timestamp (LA time) shown in the footer (`partials/footer.html`)
 - **random_intro.py** - randomly selects a fun intro line for the homepage
 - **reading.py** - reading shelves and dithered book covers from books.markcarson.dev (`home.html`)
