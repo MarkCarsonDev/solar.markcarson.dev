@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block extra_css %}<link rel="stylesheet" href="/css/styles_home.css"><link rel="stylesheet" href="/css/styles_reading.css">{% endblock %}
 {% block content %}
+{% from "macros.html" import project_card %}
 <div id="home-content">
 
   {# ── Left column: personal content ── #}
@@ -27,32 +28,14 @@
       <h2 class="section-label">Recent Writing</h2>
 
       {# 3 newest posts (any type) #}
-      {% set newest = namespace(posts=[]) %}
-      {% for post in all_blog_posts|sort(attribute='date_str', reverse=true) %}
-        {% if newest.posts|length < 3 %}
-          {% set newest.posts = newest.posts + [post] %}
-        {% endif %}
-      {% endfor %}
+      {% set newest = namespace(posts=(all_blog_posts|sort(attribute='date_str', reverse=true))[:3]) %}
       {% set shown = namespace(slugs=newest.posts|map(attribute='slug')|list) %}
 
       {% if newest.posts %}
       <h3 class="projects-group-label">Newest</h3>
       <ul class="project-grid">
         {% for post in newest.posts %}
-        <li class="project-card">
-          <a href="{{ post.full_url }}">
-            {% if post.cover_img_dithered %}
-            <div class="project-card-cover">
-              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
-            </div>
-            {% endif %}
-            <div class="project-card-body">
-              <h3 class="project-card-title">{{ post.title }}</h3>
-              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
-              <span class="project-card-date">{{ post.date_str }}</span>
-            </div>
-          </a>
-        </li>
+        {{ project_card(post) }}
         {% endfor %}
       </ul>
       <a href="/blog/" class="post-list-more">All posts &rarr;</a>
@@ -70,20 +53,7 @@
       <h3 class="projects-group-label">Featured</h3>
       <ul class="project-grid">
         {% for post in featured.posts %}
-        <li class="project-card">
-          <a href="{{ post.full_url }}">
-            {% if post.cover_img_dithered %}
-            <div class="project-card-cover">
-              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
-            </div>
-            {% endif %}
-            <div class="project-card-body">
-              <h3 class="project-card-title">{{ post.title }}</h3>
-              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
-              <span class="project-card-date">{{ post.date_str }}</span>
-            </div>
-          </a>
-        </li>
+        {{ project_card(post) }}
         {% endfor %}
       </ul>
       {% endif %}
@@ -104,20 +74,7 @@
       {% if projects.posts %}
       <ul class="project-grid">
         {% for post in projects.posts %}
-        <li class="project-card">
-          <a href="{{ post.full_url }}">
-            {% if post.cover_img_dithered %}
-            <div class="project-card-cover">
-              <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
-            </div>
-            {% endif %}
-            <div class="project-card-body">
-              <h3 class="project-card-title">{{ post.title }}</h3>
-              {% if post.description %}<p class="project-card-desc">{{ post.description }}</p>{% endif %}
-              <span class="project-card-date">{{ post.date_str }}</span>
-            </div>
-          </a>
-        </li>
+        {{ project_card(post) }}
         {% endfor %}
       </ul>
       {% else %}
@@ -129,65 +86,24 @@
     <section id="reading" class="home-section">
       <h2 class="section-label">Recent Reading</h2>
 
-      {# ── In Progress ── #}
-      {% if reading_inprogress_top %}
-      <h3 class="projects-group-label">In Progress</h3>
+      {% for shelf in reading_shelves if shelf.top %}
+      <h3 class="projects-group-label">{{ shelf.label }}</h3>
       <ul class="book-grid">
-        {% for book in reading_inprogress_top %}
+        {% for book in shelf.top %}
         {% include "partials/book_card.html" %}
         {% endfor %}
       </ul>
-      {% if reading_inprogress_rest %}
+      {% if shelf.rest %}
       <details class="book-more">
-        <summary>{{ reading_inprogress_rest|length }} more in progress</summary>
+        <summary>{{ shelf.rest|length }} more {{ shelf.more_label }}</summary>
         <ul class="book-grid">
-          {% for book in reading_inprogress_rest %}
+          {% for book in shelf.rest %}
           {% include "partials/book_card.html" %}
           {% endfor %}
         </ul>
       </details>
       {% endif %}
-      {% endif %}
-
-      {# ── Recently Finished ── #}
-      {% if reading_finished_top %}
-      <h3 class="projects-group-label">Recently Finished</h3>
-      <ul class="book-grid">
-        {% for book in reading_finished_top %}
-        {% include "partials/book_card.html" %}
-        {% endfor %}
-      </ul>
-      {% if reading_finished_rest %}
-      <details class="book-more">
-        <summary>{{ reading_finished_rest|length }} more finished</summary>
-        <ul class="book-grid">
-          {% for book in reading_finished_rest %}
-          {% include "partials/book_card.html" %}
-          {% endfor %}
-        </ul>
-      </details>
-      {% endif %}
-      {% endif %}
-
-      {# ── Up Next ── #}
-      {% if reading_up_next_top %}
-      <h3 class="projects-group-label">Up Next</h3>
-      <ul class="book-grid">
-        {% for book in reading_up_next_top %}
-        {% include "partials/book_card.html" %}
-        {% endfor %}
-      </ul>
-      {% if reading_up_next_rest %}
-      <details class="book-more">
-        <summary>{{ reading_up_next_rest|length }} more queued</summary>
-        <ul class="book-grid">
-          {% for book in reading_up_next_rest %}
-          {% include "partials/book_card.html" %}
-          {% endfor %}
-        </ul>
-      </details>
-      {% endif %}
-      {% endif %}
+      {% endfor %}
 
     </section>
 

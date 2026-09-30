@@ -15,7 +15,6 @@
 
 .home-left {
     padding: 2.5rem 2.5rem 4rem 0;
-    border-right: var(--hairline);
     position: sticky;
     top: var(--banner-height);
     max-height: calc(100vh - var(--banner-height));
@@ -24,6 +23,8 @@
 
 .home-right {
     padding: 2.5rem 0 4rem 2.5rem;
+    /* The divider lives here, not on the sticky left column, so it runs the full page height */
+    border-left: var(--hairline);
 }
 
 /* ---- Shared section structure ---- */
@@ -105,58 +106,6 @@
 /* ============================================================
    Section 2 — Recent Writing
    ============================================================ */
-
-.post-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.post-list-item {
-    display: grid;
-    grid-template-columns: 6.5rem 1fr;
-    gap: 0 1rem;
-    padding: 0.6rem 0;
-    border-bottom: var(--hairline);
-}
-
-.post-list-item:first-child {
-    border-top: var(--hairline);
-}
-
-.post-list-date {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    opacity: 0.45;
-    padding-top: 0.15rem;
-    white-space: nowrap;
-    line-height: 1.5;
-}
-
-.post-list-title {
-    font-family: var(--font-serif);
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin: 0 0 0.2rem 0;
-}
-
-.post-list-title a {
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 0.2em;
-}
-
-.post-list-title a:hover {
-    background-color: var(--bg-hover);
-}
-
-.post-list-excerpt {
-    font-size: 0.82rem;
-    opacity: 0.65;
-    line-height: 1.45;
-    margin: 0;
-    font-family: var(--font-serif);
-}
 
 .post-list-more {
     display: block;
@@ -297,17 +246,6 @@
     border-radius: 0.2em;
 }
 
-.about-solar-line {
-    margin-top: 1.8rem;
-    padding-top: 1rem;
-    border-top: var(--hairline);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    opacity: 0.4;
-    letter-spacing: 0.03em;
-    line-height: 1.5;
-}
-
 /* ============================================================
    Responsive adjustments
    ============================================================ */
@@ -320,13 +258,13 @@
     .home-left {
         position: static;
         max-height: none;
-        border-right: none;
         border-bottom: var(--hairline);
         padding: 2rem 0;
     }
 
     .home-right {
         padding: 2rem 0;
+        border-left: none;
     }
 }
 
