@@ -14,7 +14,7 @@ paths:
   static: "static"          # Create this directory for CSS, JS, images
   templates: "templates"    # Create this directory for your templates
   data: "data"
-  scripts: "scripts"        # Python data scripts (banner, footer, sidebar, random_intro)
+  scripts: "scripts"        # Python data scripts (see scripts/README.md)
   cache: ".cache"
 
 blog:
