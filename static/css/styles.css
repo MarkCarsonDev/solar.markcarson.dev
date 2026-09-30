@@ -208,6 +208,13 @@ a, .keypress {
 }
 
 .theme-switch {
+    /* A <button>: drop the browser's button styling */
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -234,13 +241,14 @@ a, .keypress {
         border: none;
     }
 
-    &:hover .keycap {
+    &:hover .keycap,
+    &:focus-visible .keycap {
         opacity: 1;
         width: 1.5em;
         border: 1px solid var(--text-color);
     }
 
-    &:not(:hover) .keycap {
+    &:not(:hover):not(:focus-visible) .keycap {
         opacity: 0;
         width: 0;
         border: none;
