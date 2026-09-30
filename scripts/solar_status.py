@@ -3,6 +3,8 @@
 #   BATTERY_LEVEL    = int(open('/sys/class/power_supply/BAT0/capacity').read())
 #   BATTERY_CHARGING = open('/sys/class/power_supply/BAT0/status').read().strip() == 'Charging'
 
+from sonne.script_api import sonne_var
+
 BATTERY_LEVEL = 100
 BATTERY_CHARGING = True  # True = solar charging, False = running on stored battery
 

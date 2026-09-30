@@ -1,6 +1,8 @@
 # A random intro line for the home page ({{ random_intro }} in home.html).
 import random
 
+from sonne.script_api import sonne_var
+
 INTRO_LINES = [
     "a fan of slow computers... sometimes...",
     "enjoyer of plants and the tiny.",

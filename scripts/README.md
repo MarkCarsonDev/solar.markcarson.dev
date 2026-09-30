@@ -5,14 +5,16 @@ This directory contains Python scripts that run at build time to generate dynami
 ## How It Works
 
 1. **Scripts are executed during build** - Every `.py` file in this directory runs when you build your site
-2. **Set variables with `sonne_var()`** - Use `sonne_var('name', value)` to make data available to templates
+2. **Set variables with `sonne_var()`** - `from sonne.script_api import sonne_var, sonne_config`, then `sonne_var('name', value)` makes data available to templates and `sonne_config('section', 'key')` reads the site config
 3. **Variables available everywhere** - Use `{{ variable_name }}` in Jinja templates
 
 ## Example
 
 ```python
-# scripts/build_info.py
+# scripts/example.py
 from datetime import datetime
+
+from sonne.script_api import sonne_var
 
 # Get current date
 build_date = datetime.now().strftime("%Y-%m-%d %H:%M")

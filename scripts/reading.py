@@ -12,7 +12,7 @@ import logging
 import urllib.request
 from pathlib import Path
 
-from sonne.core.config import Config
+from sonne.script_api import sonne_config, sonne_var
 
 logger = logging.getLogger("sonne")
 
@@ -23,10 +23,9 @@ COVER_MAX_WIDTH = 200
 BOOKS_SHOWN_PER_SHELF = 3
 
 SITE_ROOT = Path(__file__).resolve().parent.parent
-SITE_CONFIG = Config(base_dir=str(SITE_ROOT))
 # Covers bypass Sonne's static pipeline: copy_static_files only copies what
 # exists in static/, so it leaves this directory alone.
-COVERS_DIR = SITE_ROOT / SITE_CONFIG.get("paths", "output", default="build") / "images" / "books"
+COVERS_DIR = SITE_ROOT / sonne_config("paths", "output", default="build") / "images" / "books"
 
 
 def main():
@@ -97,15 +96,17 @@ def ensure_cover(book):
 def save_dithered_cover(image_bytes, cover_path):
     from PIL import Image, ImageOps
 
+    from sonne.core.config import Config
     from sonne.processors.image_processor import ImageProcessor
 
     image = ImageOps.exif_transpose(Image.open(io.BytesIO(image_bytes)))
     if image.width > COVER_MAX_WIDTH:
         height = int(image.height * COVER_MAX_WIDTH / image.width)
         image = image.resize((COVER_MAX_WIDTH, height), Image.LANCZOS)
-    # _apply_dither is private to Sonne; it is used so covers match the site's
-    # images.dither_* settings (see the design notes in docs/REVIEW_NOTES.md).
-    dithered = ImageProcessor(SITE_CONFIG, {})._apply_dither(image)
+    # ImageProcessor needs a Config object (sonne_config only returns values),
+    # so the site config is loaded once more here; see docs/REVIEW_NOTES.md.
+    site_config = Config(base_dir=str(SITE_ROOT))
+    dithered = ImageProcessor(site_config, {}).dither(image)
     dithered.save(cover_path, format="PNG", optimize=True)
 
 
