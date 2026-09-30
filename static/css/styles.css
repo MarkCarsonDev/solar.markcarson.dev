@@ -46,7 +46,9 @@ body {
     width: 100%;
     border-top: var(--hairline);
     border-bottom: var(--hairline);
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     background-color: var(--bg);
     display: flex;
     justify-content: center;
