@@ -12,7 +12,7 @@ import logging
 import urllib.request
 from pathlib import Path
 
-from sonne.script_api import sonne_config, sonne_var
+from sonne.script_api import dither_image, sonne_config, sonne_var
 
 logger = logging.getLogger("sonne")
 
@@ -96,18 +96,11 @@ def ensure_cover(book):
 def save_dithered_cover(image_bytes, cover_path):
     from PIL import Image, ImageOps
 
-    from sonne.core.config import Config
-    from sonne.processors.image_processor import ImageProcessor
-
     image = ImageOps.exif_transpose(Image.open(io.BytesIO(image_bytes)))
     if image.width > COVER_MAX_WIDTH:
         height = int(image.height * COVER_MAX_WIDTH / image.width)
         image = image.resize((COVER_MAX_WIDTH, height), Image.LANCZOS)
-    # ImageProcessor needs a Config object (sonne_config only returns values),
-    # so the site config is loaded once more here; see docs/REVIEW_NOTES.md.
-    site_config = Config(base_dir=str(SITE_ROOT))
-    dithered = ImageProcessor(site_config, {}).dither(image)
-    dithered.save(cover_path, format="PNG", optimize=True)
+    dither_image(image).save(cover_path, format="PNG", optimize=True)
 
 
 def absolute_url(url):
