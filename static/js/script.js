@@ -63,8 +63,10 @@ function toggleTheme() {
 	setCookie("theme", newTheme, THEME_COOKIE_DAYS);
 }
 
+/** Shows the current theme's icon; the button reads "Dark mode, pressed" in the dark theme. */
 function showThemeIcon(theme) {
 	document.getElementById("theme-icon").innerHTML = theme === "light" ? SUN_SVG : MOON_SVG;
+	document.getElementById("kpD").setAttribute("aria-pressed", String(theme === "dark"));
 }
 
 // --- Cookie helper ---

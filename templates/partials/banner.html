@@ -9,10 +9,11 @@
     </div>
     <div id="items">
         <div class="theme-switch-wrapper">
-            <div class="theme-switch keypress keypress-reverse" id="kpD">
-                <span class="keycap">D</span>
-                <span id="theme-icon" class="theme-icon"></span>
-            </div>
+            <button type="button" class="theme-switch keypress keypress-reverse" id="kpD"
+                    aria-label="Dark mode" aria-pressed="false" title="Toggle dark mode (D)">
+                <span class="keycap" aria-hidden="true">D</span>
+                <span id="theme-icon" class="theme-icon" aria-hidden="true"></span>
+            </button>
         </div>
         <a href="/feed.xml" class="rss-link keypress keypress-reverse" title="RSS Feed" aria-label="RSS Feed">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
