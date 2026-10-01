@@ -58,7 +58,7 @@
     font-weight: normal;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.45;
+    color: var(--text-muted);
     margin: 0 0 1.4rem 0;
     gap: 0.9rem;
 }
@@ -91,7 +91,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    opacity: 0.5;
+    color: var(--text-muted);
     margin: 0 0 1.4rem 0;
 }
 
@@ -112,13 +112,13 @@
     margin-top: 1rem;
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    opacity: 0.5;
+    color: var(--text-muted);
     text-decoration: none;
     letter-spacing: 0.04em;
 }
 
 .post-list-more:hover {
-    opacity: 1;
+    color: var(--text-color);
     background-color: transparent;
     text-decoration: underline;
 }
@@ -132,7 +132,7 @@
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    opacity: 0.35;
+    color: var(--text-muted);
     font-weight: normal;
     margin: 1.4rem 0 0.6rem;
 }
@@ -208,7 +208,7 @@
 .project-card-desc {
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    opacity: 0.5;
+    color: var(--text-muted);
     line-height: 1.45;
     margin: 0;
 }
@@ -216,7 +216,7 @@
 .project-card-date {
     font-family: var(--font-mono);
     font-size: 0.62rem;
-    opacity: 0.4;
+    color: var(--text-muted);
     margin: auto 0 0 0;
     padding-top: 0.4rem;
 }
@@ -224,7 +224,7 @@
 .projects-empty {
     font-family: var(--font-mono);
     font-size: 0.82rem;
-    opacity: 0.45;
+    color: var(--text-muted);
     margin: 0;
 }
 

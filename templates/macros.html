@@ -8,11 +8,11 @@
 {# A post in a blog listing grid (blog index, archives, tag pages). #}
 {% macro blog_card(post, show_excerpt=false) %}
 <div class="blog-card">
-    <a href="{{ post.full_url }}" class="blog-card-cover-link">
+    <a href="{{ post.full_url }}" class="blog-card-cover-link" tabindex="-1" aria-hidden="true">
         <div class="blog-card-cover">
             {% if post.cover_img_dithered %}
             <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}"
-                 alt="{{ post.title }}" loading="lazy">
+                 alt="" loading="lazy">
             {% endif %}
         </div>
     </a>
@@ -39,7 +39,7 @@
   <a href="{{ post.full_url }}">
     {% if post.cover_img_dithered %}
     <div class="project-card-cover">
-      <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="{{ post.title }}" loading="lazy">
+      <img src="{{ post.full_url.rstrip('/') }}/{{ post.cover_img_dithered }}" alt="" loading="lazy">
     </div>
     {% endif %}
     <div class="project-card-body">

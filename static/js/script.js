@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// sync the icon and wire up interactions.
 	showThemeIcon(currentTheme());
 	initializeLightDarkSwitch();
+	initializeShortcutSwitch();
 	initializeKeypressNavigator();
 
 	// Re-enable transitions now that the initial state is fully settled.
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const THEME_COOKIE_DAYS = 7;
+const SHORTCUTS_STORAGE_KEY = "shortcuts";
 const TOGGLE_COOLDOWN_MS = 500;
 
 const SUN_SVG = `
@@ -105,6 +107,7 @@ function addKeycap(item, key) {
 	const keycap = document.createElement("span");
 	keycap.className = "keycap";
 	keycap.textContent = ARROW_KEYCAPS[key] || key.toUpperCase();
+	keycap.setAttribute("aria-hidden", "true"); // a visual hint; the element keeps its own name
 	if (item.classList.contains("keypress-reverse")) {
 		item.insertBefore(keycap, item.firstChild);
 	} else {
@@ -112,8 +115,12 @@ function addKeycap(item, key) {
 	}
 }
 
-/** A bare key press, not a browser shortcut (Ctrl+D, Cmd+1, ...) or typing into a field. */
+/**
+ * A bare key press, not a browser shortcut (Ctrl+D, Cmd+1, ...) or typing into
+ * a field, while the visitor has shortcuts switched on.
+ */
 function isShortcutFor(event, key) {
+	if (!shortcutsEnabled()) return false;
 	if (event.ctrlKey || event.metaKey || event.altKey) return false;
 	if (event.target.closest && event.target.closest("input, textarea, select, [contenteditable]")) return false;
 	return event.key.toLowerCase() === key;
@@ -124,4 +131,36 @@ function setPressed(item, pressed) {
 	const keycap = item.querySelector(".keycap");
 	const target = keycap && keycap.offsetParent !== null ? keycap : item;
 	target.classList.toggle("depressed", pressed);
+}
+
+// --- Shortcut switch ---
+// Single-key shortcuts can misfire for speech-input and keyboard users, so
+// WCAG 2.1.4 asks for a way to turn them off; the choice is remembered.
+
+function shortcutsEnabled() {
+	try {
+		return localStorage.getItem(SHORTCUTS_STORAGE_KEY) !== "off";
+	} catch (e) {
+		return true;
+	}
+}
+
+function initializeShortcutSwitch() {
+	const toggle = document.getElementById("shortcut-toggle");
+	showShortcutState(toggle, shortcutsEnabled());
+	if (!toggle) return;
+	toggle.addEventListener("click", function () {
+		const enabled = !shortcutsEnabled();
+		try {
+			localStorage.setItem(SHORTCUTS_STORAGE_KEY, enabled ? "on" : "off");
+		} catch (e) {
+			// Storage unavailable: nothing to remember the choice in.
+		}
+		showShortcutState(toggle, enabled);
+	});
+}
+
+function showShortcutState(toggle, enabled) {
+	document.documentElement.classList.toggle("shortcuts-off", !enabled);
+	if (toggle) toggle.setAttribute("aria-pressed", String(enabled));
 }

@@ -1,5 +1,5 @@
 {% set why_solar = all_blog_posts | selectattr('slug', 'equalto', 'why-solar') | first %}
-<div id="banner">
+<header id="banner">
     <div id="stamp">
         <a href="/">markcarson.dev</a>
         <span id="battery-status" data-tip="charging status and battery level coming soon">{% if battery_charging %}☀ solarized{% else %}⬡ {{ battery_level }}%{% endif %}</span>
@@ -22,4 +22,4 @@
             </svg>
         </a>
     </div>
-</div>
+</header>
