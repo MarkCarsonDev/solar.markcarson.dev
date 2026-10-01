@@ -95,6 +95,11 @@
     font-weight: 600;
 }
 
+/* On the highlighted row the muted date would drop below 4.5:1 */
+.sidebar-post-item.current-post .sidebar-post-date {
+    color: var(--text-color);
+}
+
 .sidebar-post-date {
     font-family: var(--font-mono);
     font-size: 0.7rem;
