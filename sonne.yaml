@@ -56,10 +56,6 @@ variables:
   file: "sonne_variables.json"
   preserve_prior: true
 
-security:
-  csp:
-    enabled: false
-
 url_style:
   prod: "clean"
   dev: "directory"
@@ -67,9 +63,6 @@ url_style:
 environment: "prod"
 
 build:
-  incremental: true
-  show_progress: true
-  statistics: true
   show_page_size: true
 
 serve:
