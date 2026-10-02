@@ -10,7 +10,7 @@
     <section id="home-intro" class="home-section">
       <h1 class="home-name">{% set _n = (site.author|default('Mark Carson')).split(' ') %}{{ _n[0] }}<br>{{ _n[1:] | join(' ') }}</h1>
       <p class="home-tagline">{{ site.tagline|default('Software Engineering, Data Science, Environmentalism') }}</p>
-      <p class="home-lede">{{ random_intro|default('a fan of slow computers, sometimes.') }} <br>Strongly motivated to help people, animals, and the planet.</p>
+      <p class="home-lede">{{ data.random_intro|default('a fan of slow computers, sometimes.') }} <br>Strongly motivated to help people, animals, and the planet.</p>
     </section>
 
     <section id="about" class="home-section">
@@ -86,7 +86,7 @@
     <section id="reading" class="home-section">
       <h2 class="section-label">Recent Reading</h2>
 
-      {% for shelf in reading_shelves if shelf.top %}
+      {% for shelf in data.reading_shelves if shelf.top %}
       <h3 class="projects-group-label">{{ shelf.label }}</h3>
       <ul class="book-grid">
         {% for book in shelf.top %}

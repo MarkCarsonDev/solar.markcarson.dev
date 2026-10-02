@@ -1,4 +1,4 @@
-# A random intro line for the home page ({{ random_intro }} in home.html).
+# A random intro line for the home page ({{ data.random_intro }} in home.html).
 import random
 
 from sonne.script_api import sonne_var
