@@ -2,7 +2,7 @@
 <header id="banner">
     <div id="stamp">
         <a href="/">markcarson.dev</a>
-        <span id="battery-status" data-tip="charging status and battery level coming soon">{% if battery_charging %}☀ solarized{% else %}⬡ {{ battery_level }}%{% endif %}</span>
+        <span id="battery-status" data-tip="charging status and battery level coming soon">{% if data.battery_charging %}☀ solarized{% else %}⬡ {{ data.battery_level }}%{% endif %}</span>
     </div>
     <div id="message">
         <p>This site is solar-powered and may go down occasionally. <a href="{{ why_solar.full_url if why_solar else '/blog/' }}">Read why.</a></p>
